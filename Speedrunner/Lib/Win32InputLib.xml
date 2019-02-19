@@ -1,0 +1,476 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Win32InputLib</name>
+    </assembly>
+    <members>
+        <member name="T:Win32InputLib.InputSimulator">
+            <summary>
+            マウスとキーボード入力のシミュレーションに関するクラス
+            </summary>
+        </member>
+        <member name="T:Win32InputLib.InputSimulator.NativeMethods">
+            <summary>
+            P/Invoke
+            </summary>
+        </member>
+        <member name="M:Win32InputLib.InputSimulator.NativeMethods.MapVirtualKey(System.Int32,System.Int32)">
+            <summary>
+            仮想キーコードをスキャンコード、または文字の値（ASCII 値）へ変換します。
+            また、スキャンコードを仮想コードへ変換することもできます。
+            </summary>
+            <param name="wCode">仮想キーコードまたはスキャンコード</param>
+            <param name="wMapType">実行したい変換の種類</param>
+            <returns></returns>
+        </member>
+        <member name="M:Win32InputLib.InputSimulator.NativeMethods.SendInput(System.Int32,Win32InputLib.InputSimulator.Input[],System.Int32)">
+            <summary>
+            キーストローク、マウスの動き、ボタンのクリックなどを合成します。
+            </summary>
+            <param name="nInputs"><paramref name="pInputs"/> 配列内の構造体の数を指定します。</param>
+            <param name="pInputs">INPUT 構造体の配列へのポインタを指定します。構造体はそれぞれキーボードまたはマウス入力ストリームに挿入されるイベントを表します。</param>
+            <param name="cbsize">INPUT 構造体のサイズを指定します。cbSize パラメータの値が INPUT 構造体のサイズと等しくない場合、関数は失敗します。</param>
+        </member>
+        <member name="T:Win32InputLib.InputSimulator.MouseInput">
+            <summary>
+            シミュレートされたマウスイベントの構造体
+            </summary>
+        </member>
+        <member name="T:Win32InputLib.InputSimulator.KeyboardInput">
+            <summary>
+            シミュレートされたキーボードイベントの構造体
+            </summary>
+        </member>
+        <member name="T:Win32InputLib.InputSimulator.HardwareInput">
+            <summary>
+            キーボードやマウス以外の入力デバイスによって生成されたシミュレートされたメッセージの構造体
+            </summary>
+        </member>
+        <member name="T:Win32InputLib.InputSimulator.Input">
+            <summary>
+            キーストローク、マウスの動き、マウスクリックなどの入力イベントの構造体
+            </summary>
+        </member>
+        <member name="T:Win32InputLib.InputSimulator.MouseStroke">
+            <summary>
+            マウス動作の列挙型
+            </summary>
+        </member>
+        <member name="T:Win32InputLib.InputSimulator.KeyboardStroke">
+            <summary>
+            キーボード動作の列挙型
+            </summary>
+        </member>
+        <member name="F:Win32InputLib.InputSimulator.KBD_UNICODE">
+            <summary>
+            KEYEVENTF_UNICODE
+            </summary>
+        </member>
+        <member name="M:Win32InputLib.InputSimulator.AddMouseInput(System.Collections.Generic.List{Win32InputLib.InputSimulator.Input}@,Win32InputLib.InputSimulator.MouseStroke,System.Int32,System.Boolean,System.Int32,System.Int32)">
+            <summary>
+            マウス入力のイベントを追加します。
+            </summary>
+            <param name="inputs">入力イベントのリスト</param>
+            <param name="flag">移動とクリックのオプション</param>
+            <param name="data">シミュレートされたマウスイベントに関する情報（ホイール回転量又はXボタン番号）</param>
+            <param name="absolute">マウス座標を絶対値で指定する場合は true</param>
+            <param name="x">水平位置または移動量</param>
+            <param name="y">垂直位置または移動量</param>
+        </member>
+        <member name="M:Win32InputLib.InputSimulator.AddMouseInput(System.Collections.Generic.List{Win32InputLib.InputSimulator.Input}@,System.Collections.Generic.List{Win32InputLib.InputSimulator.MouseStroke},System.Int32,System.Boolean,System.Int32,System.Int32)">
+            <summary>
+            マウス入力のイベントを追加します。
+            </summary>
+            <param name="inputs">入力イベントのリスト</param>
+            <param name="flags">移動とクリックのオプション</param>
+            <param name="data">シミュレートされたマウスイベントに関する情報（ホイール回転量又はXボタン番号）</param>
+            <param name="absolute">マウス座標を絶対値で指定する場合は true</param>
+            <param name="x">水平位置または移動量</param>
+            <param name="y">垂直位置または移動量</param>
+        </member>
+        <member name="M:Win32InputLib.InputSimulator.AddMouseInput(System.Collections.Generic.List{Win32InputLib.InputSimulator.Input}@,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            マウス入力のイベントを追加します。
+            </summary>
+            <param name="inputs">入力イベントのリスト</param>
+            <param name="flags">移動とクリックのオプション</param>
+            <param name="data">シミュレートされたマウスイベントに関する情報（ホイール回転量又はXボタン番号）</param>
+            <param name="x">水平位置または移動量</param>
+            <param name="y">垂直位置または移動量</param>
+            <param name="time">ミリ秒単位でのイベントのタイムスタンプ</param>
+            <param name="extraInfo">マウスイベントに関連する追加の値</param>
+        </member>
+        <member name="M:Win32InputLib.InputSimulator.AddKeyboardInput(System.Collections.Generic.List{Win32InputLib.InputSimulator.Input}@,System.String)">
+            <summary>
+            キーボード入力のイベントを追加します。
+            </summary>
+            <param name="inputs">入力イベントのリスト</param>
+            <param name="srcStr">入力する文字列</param>
+        </member>
+        <member name="M:Win32InputLib.InputSimulator.AddKeyboardInput(System.Collections.Generic.List{Win32InputLib.InputSimulator.Input}@,Win32InputLib.InputSimulator.KeyboardStroke,System.Windows.Forms.Keys)">
+            <summary>
+            キーボード入力のイベントを追加します。
+            </summary>
+            <param name="inputs">入力イベントのリスト</param>
+            <param name="flags">キーボードの動作</param>
+            <param name="key">入力するキー</param>
+        </member>
+        <member name="M:Win32InputLib.InputSimulator.AddKeyboardInput(System.Collections.Generic.List{Win32InputLib.InputSimulator.Input}@,System.Int32,System.Int16,System.Int16,System.Int32,System.Int32)">
+            <summary>
+            キーボード入力のイベントを追加します。
+            </summary>
+            <param name="inputs">入力イベントのリスト</param>
+            <param name="flags">キーストロークのオプション</param>
+            <param name="virtualKey">仮想キーコード</param>
+            <param name="scanCode">キーのハードウェアスキャンコード</param>
+            <param name="time">ミリ秒単位でのイベントのタイムスタンプ</param>
+            <param name="extraInfo">キーストロークに関連付けられた付加価値</param>
+        </member>
+        <member name="M:Win32InputLib.InputSimulator.SendInput(System.Collections.Generic.List{Win32InputLib.InputSimulator.Input})">
+            <summary>
+            入力イベントを実行します。
+            </summary>
+        </member>
+        <member name="M:Win32InputLib.InputSimulator.SendInput(Win32InputLib.InputSimulator.Input[])">
+            <summary>
+            入力イベントを実行します。
+            </summary>
+        </member>
+        <member name="T:Win32InputLib.KeyboardHook">
+            <summary>
+            キーボードのグローバルフックに関するクラス
+            </summary>
+        </member>
+        <member name="T:Win32InputLib.KeyboardHook.NativeMethods">
+            <summary>
+            P/Invoke
+            </summary>
+        </member>
+        <member name="T:Win32InputLib.KeyboardHook.NativeMethods.KeyboardHookCallback">
+            <summary>
+            フックプロシージャのデリゲート
+            </summary>
+            <param name="nCode">フックプロシージャに渡すフックコード</param>
+            <param name="msg">フックプロシージャに渡す値</param>
+            <param name="msllhookstruct">フックプロシージャに渡す値</param>
+            <returns>フックチェーン内の次のフックプロシージャの戻り値</returns>
+        </member>
+        <member name="M:Win32InputLib.KeyboardHook.NativeMethods.SetWindowsHookEx(System.Int32,Win32InputLib.KeyboardHook.NativeMethods.KeyboardHookCallback,System.IntPtr,System.UInt32)">
+            <summary>
+            アプリケーション定義のフックプロシージャをフックチェーン内にインストールします。
+            フックプロシージャをインストールすると、特定のイベントタイプを監視できます。
+            監視の対象になるイベントは、特定のスレッド、または呼び出し側スレッドと同じデスクトップ内のすべてのスレッドに関連付けられているものです。
+            </summary>
+            <param name="idHook">フックタイプ</param>
+            <param name="lpfn">フックプロシージャ</param>
+            <param name="hMod">アプリケーションインスタンスのハンドル</param>
+            <param name="dwThreadId">スレッドの識別子</param>
+            <returns>関数が成功すると、フックプロシージャのハンドルが返ります。関数が失敗すると、NULL が返ります。</returns>
+        </member>
+        <member name="M:Win32InputLib.KeyboardHook.NativeMethods.CallNextHookEx(System.IntPtr,System.Int32,System.UInt32,Win32InputLib.KeyboardHook.KBDLLHOOKSTRUCT@)">
+            <summary>
+            現在のフックチェーン内の次のフックプロシージャに、フック情報を渡します。
+            フックプロシージャは、フック情報を処理する前でも、フック情報を処理した後でも、この関数を呼び出せます。
+            </summary>
+            <param name="hhk">現在のフックのハンドル</param>
+            <param name="nCode">フックプロシージャに渡すフックコード</param>
+            <param name="msg">フックプロシージャに渡す値</param>
+            <param name="msllhookstruct">フックプロシージャに渡す値</param>
+            <returns>フックチェーン内の次のフックプロシージャの戻り値</returns>
+        </member>
+        <member name="M:Win32InputLib.KeyboardHook.NativeMethods.UnhookWindowsHookEx(System.IntPtr)">
+            <summary>
+            SetWindowsHookEx 関数を使ってフックチェーン内にインストールされたフックプロシージャを削除します。
+            </summary>
+            <param name="hhk">削除対象のフックプロシージャのハンドル</param>
+            <returns>関数が成功すると、0 以外の値が返ります。関数が失敗すると、0 が返ります。</returns>
+        </member>
+        <member name="T:Win32InputLib.KeyboardHook.StateKeyboard">
+            <summary>
+            キーボードの状態の構造体
+            </summary>
+        </member>
+        <member name="T:Win32InputLib.KeyboardHook.Stroke">
+            <summary>
+            挙動の列挙型
+            </summary>
+        </member>
+        <member name="P:Win32InputLib.KeyboardHook.IsHooking">
+            <summary>
+            キーボードのグローバルフックを実行しているかどうかを取得、設定します。
+            </summary>
+        </member>
+        <member name="P:Win32InputLib.KeyboardHook.IsPaused">
+            <summary>
+            キーボードのグローバルフックを中断しているかどうかを取得、設定します。
+            </summary>
+        </member>
+        <member name="F:Win32InputLib.KeyboardHook.State">
+            <summary>
+            キーボードの状態を取得、設定します。
+            </summary>
+        </member>
+        <member name="T:Win32InputLib.KeyboardHook.HookHandler">
+            <summary>
+            フックプロシージャ内でのイベント用のデリゲート
+            </summary>
+            <param name="msg">キーボードに関するウィンドウメッセージ</param>
+            <param name="msllhookstruct">低レベルのキーボードの入力イベントの構造体</param>
+        </member>
+        <member name="T:Win32InputLib.KeyboardHook.KBDLLHOOKSTRUCT">
+            <summary>
+            低レベルのキーボードの入力イベントの構造体
+            </summary>
+        </member>
+        <member name="F:Win32InputLib.KeyboardHook.Handle">
+            <summary>
+            フックプロシージャのハンドル
+            </summary>
+        </member>
+        <member name="F:Win32InputLib.KeyboardHook.IsCancel">
+            <summary>
+            入力をキャンセルするかどうかを取得、設定します。
+            </summary>
+        </member>
+        <member name="F:Win32InputLib.KeyboardHook.Events">
+            <summary>
+            登録イベントのリストを取得、設定します。
+            </summary>
+        </member>
+        <member name="E:Win32InputLib.KeyboardHook.HookEvent">
+            <summary>
+            フックプロシージャ内でのイベント
+            </summary>
+        </member>
+        <member name="E:Win32InputLib.KeyboardHook.hookCallback">
+            <summary>
+            フックチェーンにインストールするフックプロシージャのイベント
+            </summary>
+        </member>
+        <member name="M:Win32InputLib.KeyboardHook.Start">
+            <summary>
+            フックプロシージャをフックチェーン内にインストールし、キーボードのグローバルフックを開始します。
+            </summary>
+            <exception cref="T:System.ComponentModel.Win32Exception"></exception>
+        </member>
+        <member name="M:Win32InputLib.KeyboardHook.Stop">
+            <summary>
+            キーボードのグローバルフックを停止し、フックプロシージャをフックチェーン内から削除します。
+            </summary>
+        </member>
+        <member name="M:Win32InputLib.KeyboardHook.Cancel">
+            <summary>
+            次のフックプロシージャにフック情報を渡すのをキャンセルします。
+            </summary>
+        </member>
+        <member name="M:Win32InputLib.KeyboardHook.Pause">
+            <summary>
+            キーボードのグローバルフックを中断します。
+            </summary>
+        </member>
+        <member name="M:Win32InputLib.KeyboardHook.AddEvent(Win32InputLib.KeyboardHook.HookHandler)">
+            <summary>
+            キーボード操作時のイベントを追加します。
+            </summary>
+            <param name="hookHandler"></param>
+        </member>
+        <member name="M:Win32InputLib.KeyboardHook.RemoveEvent(Win32InputLib.KeyboardHook.HookHandler)">
+            <summary>
+            キーボード操作時のイベントを削除します。
+            </summary>
+            <param name="hookHandler"></param>
+        </member>
+        <member name="M:Win32InputLib.KeyboardHook.ClearEvent">
+            <summary>
+            キーボード操作時のイベントを全て削除します。
+            </summary>
+        </member>
+        <member name="M:Win32InputLib.KeyboardHook.HookProcedure(System.Int32,System.UInt32,Win32InputLib.KeyboardHook.KBDLLHOOKSTRUCT@)">
+            <summary>
+            フックチェーンにインストールするフックプロシージャ
+            </summary>
+            <param name="nCode">フックプロシージャに渡すフックコード</param>
+            <param name="msg">フックプロシージャに渡す値</param>
+            <param name="msllhookstruct">フックプロシージャに渡す値</param>
+            <returns>フックチェーン内の次のフックプロシージャの戻り値</returns>
+        </member>
+        <member name="M:Win32InputLib.KeyboardHook.GetStroke(System.UInt32)">
+            <summary>
+            キーボードキーの挙動を取得します。
+            </summary>
+            <param name="msg">キーボードに関するウィンドウメッセージ</param>
+            <returns>キーボードボタンの挙動</returns>
+        </member>
+        <member name="T:Win32InputLib.MouseHook">
+            <summary>
+            マウスのグローバルフックに関するクラス
+            </summary>
+        </member>
+        <member name="T:Win32InputLib.MouseHook.NativeMethods">
+            <summary>
+            P/Invoke
+            </summary>
+        </member>
+        <member name="T:Win32InputLib.MouseHook.NativeMethods.MouseHookCallback">
+            <summary>
+            フックプロシージャのデリゲート
+            </summary>
+            <param name="nCode">フックプロシージャに渡すフックコード</param>
+            <param name="msg">フックプロシージャに渡す値</param>
+            <param name="msllhookstruct">フックプロシージャに渡す値</param>
+            <returns>フックチェーン内の次のフックプロシージャの戻り値</returns>
+        </member>
+        <member name="M:Win32InputLib.MouseHook.NativeMethods.SetWindowsHookEx(System.Int32,Win32InputLib.MouseHook.NativeMethods.MouseHookCallback,System.IntPtr,System.UInt32)">
+            <summary>
+            アプリケーション定義のフックプロシージャをフックチェーン内にインストールします。
+            フックプロシージャをインストールすると、特定のイベントタイプを監視できます。
+            監視の対象になるイベントは、特定のスレッド、または呼び出し側スレッドと同じデスクトップ内のすべてのスレッドに関連付けられているものです。
+            </summary>
+            <param name="idHook">フックタイプ</param>
+            <param name="lpfn">フックプロシージャ</param>
+            <param name="hMod">アプリケーションインスタンスのハンドル</param>
+            <param name="dwThreadId">スレッドの識別子</param>
+            <returns>関数が成功すると、フックプロシージャのハンドルが返ります。関数が失敗すると、NULL が返ります。</returns>
+        </member>
+        <member name="M:Win32InputLib.MouseHook.NativeMethods.CallNextHookEx(System.IntPtr,System.Int32,System.UInt32,Win32InputLib.MouseHook.MSLLHOOKSTRUCT@)">
+            <summary>
+            現在のフックチェーン内の次のフックプロシージャに、フック情報を渡します。
+            フックプロシージャは、フック情報を処理する前でも、フック情報を処理した後でも、この関数を呼び出せます。
+            </summary>
+            <param name="hhk">現在のフックのハンドル</param>
+            <param name="nCode">フックプロシージャに渡すフックコード</param>
+            <param name="msg">フックプロシージャに渡す値</param>
+            <param name="msllhookstruct">フックプロシージャに渡す値</param>
+            <returns>フックチェーン内の次のフックプロシージャの戻り値</returns>
+        </member>
+        <member name="M:Win32InputLib.MouseHook.NativeMethods.UnhookWindowsHookEx(System.IntPtr)">
+            <summary>
+            SetWindowsHookEx 関数を使ってフックチェーン内にインストールされたフックプロシージャを削除します。
+            </summary>
+            <param name="hhk">削除対象のフックプロシージャのハンドル</param>
+            <returns>関数が成功すると、0 以外の値が返ります。関数が失敗すると、0 が返ります。</returns>
+        </member>
+        <member name="T:Win32InputLib.MouseHook.StateMouse">
+            <summary>
+            マウスの状態の構造体
+            </summary>
+        </member>
+        <member name="T:Win32InputLib.MouseHook.Stroke">
+            <summary>
+            挙動の列挙型
+            </summary>
+        </member>
+        <member name="P:Win32InputLib.MouseHook.IsHooking">
+            <summary>
+            マウスのグローバルフックを実行しているかどうかを取得、設定します。
+            </summary>
+        </member>
+        <member name="P:Win32InputLib.MouseHook.IsPaused">
+            <summary>
+            マウスのグローバルフックを中断しているかどうかを取得、設定します。
+            </summary>
+        </member>
+        <member name="F:Win32InputLib.MouseHook.State">
+            <summary>
+            マウスの状態を取得、設定します。
+            </summary>
+        </member>
+        <member name="T:Win32InputLib.MouseHook.HookHandler">
+            <summary>
+            フックプロシージャ内でのイベント用のデリゲート
+            </summary>
+            <param name="msg">マウスに関するウィンドウメッセージ</param>
+            <param name="msllhookstruct">低レベルのマウスの入力イベントの構造体</param>
+        </member>
+        <member name="T:Win32InputLib.MouseHook.POINT">
+            <summary>
+            x 座標と y 軸座標の構造体
+            </summary>
+        </member>
+        <member name="T:Win32InputLib.MouseHook.MSLLHOOKSTRUCT">
+            <summary>
+            低レベルのマウスの入力イベントの構造体
+            </summary>
+        </member>
+        <member name="F:Win32InputLib.MouseHook.Handle">
+            <summary>
+            フックプロシージャのハンドル
+            </summary>
+        </member>
+        <member name="F:Win32InputLib.MouseHook.IsCancel">
+            <summary>
+            入力をキャンセルするかどうかを取得、設定します。
+            </summary>
+        </member>
+        <member name="F:Win32InputLib.MouseHook.Events">
+            <summary>
+            登録イベントのリストを取得、設定します。
+            </summary>
+        </member>
+        <member name="E:Win32InputLib.MouseHook.HookEvent">
+            <summary>
+            フックプロシージャ内でのイベント
+            </summary>
+        </member>
+        <member name="E:Win32InputLib.MouseHook.hookCallback">
+            <summary>
+            フックチェーンにインストールするフックプロシージャのイベント
+            </summary>
+        </member>
+        <member name="M:Win32InputLib.MouseHook.Start">
+            <summary>
+            フックプロシージャをフックチェーン内にインストールし、マウスのグローバルフックを開始します。
+            </summary>
+            <exception cref="T:System.ComponentModel.Win32Exception"></exception>
+        </member>
+        <member name="M:Win32InputLib.MouseHook.Stop">
+            <summary>
+            マウスのグローバルフックを停止し、フックプロシージャをフックチェーン内から削除します。
+            </summary>
+        </member>
+        <member name="M:Win32InputLib.MouseHook.Cancel">
+            <summary>
+            次のフックプロシージャにフック情報を渡すのをキャンセルします。
+            </summary>
+        </member>
+        <member name="M:Win32InputLib.MouseHook.Pause">
+            <summary>
+            マウスのグローバルフックを中断します。
+            </summary>
+        </member>
+        <member name="M:Win32InputLib.MouseHook.AddEvent(Win32InputLib.MouseHook.HookHandler)">
+            <summary>
+            マウス操作時のイベントを追加します。
+            </summary>
+            <param name="hookHandler"></param>
+        </member>
+        <member name="M:Win32InputLib.MouseHook.RemoveEvent(Win32InputLib.MouseHook.HookHandler)">
+            <summary>
+            マウス操作時のイベントを削除します。
+            </summary>
+            <param name="hookHandler"></param>
+        </member>
+        <member name="M:Win32InputLib.MouseHook.ClearEvent">
+            <summary>
+            マウス操作時のイベントを全て削除します。
+            </summary>
+        </member>
+        <member name="M:Win32InputLib.MouseHook.HookProcedure(System.Int32,System.UInt32,Win32InputLib.MouseHook.MSLLHOOKSTRUCT@)">
+            <summary>
+            フックチェーンにインストールするフックプロシージャ
+            </summary>
+            <param name="nCode">フックプロシージャに渡すフックコード</param>
+            <param name="msg">フックプロシージャに渡す値</param>
+            <param name="msllhookstruct">フックプロシージャに渡す値</param>
+            <returns>フックチェーン内の次のフックプロシージャの戻り値</returns>
+        </member>
+        <member name="M:Win32InputLib.MouseHook.GetStroke(System.UInt32,Win32InputLib.MouseHook.MSLLHOOKSTRUCT@)">
+            <summary>
+            マウスボタンの挙動を取得します。
+            </summary>
+            <param name="msg">マウスに関するウィンドウメッセージ</param>
+            <param name="s">低レベルのマウスの入力イベントの構造体</param>
+            <returns>マウスボタンの挙動</returns>
+        </member>
+    </members>
+</doc>

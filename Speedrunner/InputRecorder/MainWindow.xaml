@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InputRecorder"
         mc:Ignorable="d"
-        Title="Input Recorder" Height="450" Width="800">
+        Title="Input Recorder" Height="120" Width="240" FontSize="20" Topmost="True">
     <Grid>
-        
+        <ToggleButton x:Name="RecordButton" Content="Record" Width="180" Height="40"/>
     </Grid>
 </Window>

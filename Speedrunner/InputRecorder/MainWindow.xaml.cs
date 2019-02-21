@@ -63,10 +63,10 @@ namespace InputRecorder
             KeyboardHook.Stop();
         }
 
+        // TODO: 現在の実装ではマウスとキーボードが独立しています。
         ObservableCollection<string> actions = new ObservableCollection<string>();
         MouseHook.StateMouse mouseAction;
         KeyboardHook.StateKeyboard keyAction;
-        string letters = "";
 
         void MouseNotified(ref MouseHook.StateMouse s)
         {
@@ -155,38 +155,20 @@ namespace InputRecorder
             {
                 case KeyboardHook.Stroke.KEY_DOWN:
                 case KeyboardHook.Stroke.SYSKEY_DOWN:
-                    switch (keyAction.Stroke)
+                    if (Keys.D0 <= s.Key && s.Key <= Keys.Z)
                     {
-                        case KeyboardHook.Stroke.KEY_DOWN:
-                        case KeyboardHook.Stroke.SYSKEY_DOWN:
-                            actions.Add($"{keyAction.Stroke}: {keyAction.Key}");
-                            break;
-                        default:
-                            break;
+                        actions.Add($"Type: {s.Key}");
+                    }
+                    else
+                    {
+                        actions.Add($"{s.Stroke}: {s.Key}");
                     }
                     break;
                 case KeyboardHook.Stroke.KEY_UP:
                 case KeyboardHook.Stroke.SYSKEY_UP:
-                    switch (keyAction.Stroke)
+                    if (IsModifier(s.Key))
                     {
-                        case KeyboardHook.Stroke.KEY_DOWN:
-                        case KeyboardHook.Stroke.SYSKEY_DOWN:
-                            if (s.Key == keyAction.Key)
-                            {
-                                actions.Add($"SendKey: {s.Key}");
-                            }
-                            else
-                            {
-                                actions.Add($"{keyAction.Stroke}: {keyAction.Key}");
-                                actions.Add($"{s.Stroke}: {s.Key}");
-                            }
-                            break;
-                        case KeyboardHook.Stroke.KEY_UP:
-                        case KeyboardHook.Stroke.SYSKEY_UP:
-                            actions.Add($"{s.Stroke}: {s.Key}");
-                            break;
-                        default:
-                            break;
+                        actions.Add($"{s.Stroke}: {s.Key}");
                     }
                     break;
                 default:
@@ -194,6 +176,30 @@ namespace InputRecorder
             }
 
             keyAction = s;
+        }
+
+        static bool IsModifier(Keys key)
+        {
+            switch (key)
+            {
+                case Keys.ShiftKey:
+                case Keys.ControlKey:
+                case Keys.Menu:
+                case Keys.LWin:
+                case Keys.RWin:
+                case Keys.LShiftKey:
+                case Keys.RShiftKey:
+                case Keys.LControlKey:
+                case Keys.RControlKey:
+                case Keys.LMenu:
+                case Keys.RMenu:
+                case Keys.Shift:
+                case Keys.Control:
+                case Keys.Alt:
+                    return true;
+                default:
+                    return false;
+            }
         }
     }
 }

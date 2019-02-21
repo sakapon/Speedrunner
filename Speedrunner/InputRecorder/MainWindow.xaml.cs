@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,14 +30,11 @@ namespace InputRecorder
         {
             InitializeComponent();
 
-            Closing += (o, e) =>
-            {
-                MouseHook.Stop();
-                KeyboardHook.Stop();
-            };
+            Directory.CreateDirectory(OutputDirName);
 
             RecordButton.Checked += RecordButton_Checked;
             RecordButton.Unchecked += RecordButton_Unchecked;
+            Closing += (o, e) => RecordButton_Unchecked(o, null);
 
             actions.CollectionChanged += (o, e) =>
             {
@@ -61,7 +59,15 @@ namespace InputRecorder
             RecordButton.Content = "Record";
             MouseHook.Stop();
             KeyboardHook.Stop();
+
+            if (actions.Any())
+            {
+                File.WriteAllLines($@"{OutputDirName}\{DateTime.Now:yyyyMMdd-HHmmss}.txt", actions, Encoding.UTF8);
+                actions.Clear();
+            }
         }
+
+        const string OutputDirName = "Workflows";
 
         // TODO: 現在の実装ではマウスとキーボードが独立しています。
         ObservableCollection<string> actions = new ObservableCollection<string>();

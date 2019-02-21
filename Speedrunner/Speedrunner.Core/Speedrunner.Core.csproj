@@ -16,4 +16,8 @@
     <DocumentationFile>bin\Release\Speedrunner.Core.xml</DocumentationFile>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Reference Include="System.Xaml" />
+  </ItemGroup>
+
 </Project>

@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Win32InputLib;
+using Keys = System.Windows.Forms.Keys;
 
 namespace InputRecorder
 {
@@ -64,6 +65,8 @@ namespace InputRecorder
 
         ObservableCollection<string> actions = new ObservableCollection<string>();
         MouseHook.StateMouse mouseAction;
+        KeyboardHook.StateKeyboard keyAction;
+        string letters = "";
 
         void MouseNotified(ref MouseHook.StateMouse s)
         {
@@ -148,6 +151,49 @@ namespace InputRecorder
 
         void KeyboardNotified(ref KeyboardHook.StateKeyboard s)
         {
+            switch (s.Stroke)
+            {
+                case KeyboardHook.Stroke.KEY_DOWN:
+                case KeyboardHook.Stroke.SYSKEY_DOWN:
+                    switch (keyAction.Stroke)
+                    {
+                        case KeyboardHook.Stroke.KEY_DOWN:
+                        case KeyboardHook.Stroke.SYSKEY_DOWN:
+                            actions.Add($"{keyAction.Stroke}: {keyAction.Key}");
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                case KeyboardHook.Stroke.KEY_UP:
+                case KeyboardHook.Stroke.SYSKEY_UP:
+                    switch (keyAction.Stroke)
+                    {
+                        case KeyboardHook.Stroke.KEY_DOWN:
+                        case KeyboardHook.Stroke.SYSKEY_DOWN:
+                            if (s.Key == keyAction.Key)
+                            {
+                                actions.Add($"SendKey: {s.Key}");
+                            }
+                            else
+                            {
+                                actions.Add($"{keyAction.Stroke}: {keyAction.Key}");
+                                actions.Add($"{s.Stroke}: {s.Key}");
+                            }
+                            break;
+                        case KeyboardHook.Stroke.KEY_UP:
+                        case KeyboardHook.Stroke.SYSKEY_UP:
+                            actions.Add($"{s.Stroke}: {s.Key}");
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+            keyAction = s;
         }
     }
 }

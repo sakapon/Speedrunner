@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,6 +36,14 @@ namespace InputRecorder
 
             RecordButton.Checked += RecordButton_Checked;
             RecordButton.Unchecked += RecordButton_Unchecked;
+
+            actions.CollectionChanged += (o, e) =>
+            {
+                if (e.Action == NotifyCollectionChangedAction.Add)
+                {
+                    Debug.WriteLine(e.NewItems[0]);
+                }
+            };
         }
 
         void RecordButton_Checked(object sender, RoutedEventArgs e)
@@ -51,7 +62,7 @@ namespace InputRecorder
             KeyboardHook.Stop();
         }
 
-        List<string> actions = new List<string>();
+        ObservableCollection<string> actions = new ObservableCollection<string>();
         MouseHook.StateMouse mouseAction;
 
         void MouseNotified(ref MouseHook.StateMouse s)

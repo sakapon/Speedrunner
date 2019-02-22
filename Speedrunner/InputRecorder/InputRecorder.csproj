@@ -98,5 +98,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Speedrunner.Core\Speedrunner.Core.csproj">
+      <Project>{f36628e5-5e09-4e6d-8ea0-352f542e736a}</Project>
+      <Name>Speedrunner.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

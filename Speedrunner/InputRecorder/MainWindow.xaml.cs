@@ -16,6 +16,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xaml;
+using TasSample.Models;
 using Win32InputLib;
 using Keys = System.Windows.Forms.Keys;
 
@@ -60,9 +62,13 @@ namespace InputRecorder
             MouseHook.Stop();
             KeyboardHook.Stop();
 
+            // TODO: 直前のアクションを削除します。
+
             if (actions.Any())
             {
+                XamlServices.Save($@"{OutputDirName}\{DateTime.Now:yyyyMMdd-HHmmss}.xaml", workflow);
                 File.WriteAllLines($@"{OutputDirName}\{DateTime.Now:yyyyMMdd-HHmmss}.txt", actions, Encoding.UTF8);
+                workflow.Activities.Clear();
                 actions.Clear();
             }
         }
@@ -70,6 +76,7 @@ namespace InputRecorder
         const string OutputDirName = "Workflows";
 
         // TODO: 現在の実装ではマウスとキーボードが独立しています。
+        SequentialScreenWorkflow workflow = new SequentialScreenWorkflow { Name = "By Input Recorder" };
         ObservableCollection<string> actions = new ObservableCollection<string>();
         MouseHook.StateMouse mouseAction;
         KeyboardHook.StateKeyboard keyAction;
@@ -107,6 +114,7 @@ namespace InputRecorder
                             actions.Add($"{s.Stroke}: {s.X}, {s.Y}");
                             break;
                         case MouseHook.Stroke.LEFT_DOWN:
+                            workflow.Activities.Add(new ClickActivity { Timeout = 500, Point = new Point(s.X, s.Y) });
                             actions.Add($"Left_Click: {s.X}, {s.Y}");
                             break;
                         case MouseHook.Stroke.RIGHT_DOWN:
@@ -163,6 +171,7 @@ namespace InputRecorder
                 case KeyboardHook.Stroke.SYSKEY_DOWN:
                     if (Keys.D0 <= s.Key && s.Key <= Keys.Z)
                     {
+                        workflow.Activities.Add(new SendKeysActivity { Timeout = 500, Keys = ToLetter(s.Key) });
                         actions.Add($"Type: {s.Key}");
                     }
                     else
@@ -206,6 +215,16 @@ namespace InputRecorder
                 default:
                     return false;
             }
+        }
+
+        static string ToLetter(Keys key)
+        {
+            if (Keys.D0 <= key && key <= Keys.D9)
+                return key.ToString().TrimStart('D');
+            else if (Keys.A <= key && key <= Keys.Z)
+                return key.ToString();
+
+            throw new InvalidOperationException();
         }
     }
 }

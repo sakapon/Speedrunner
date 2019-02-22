@@ -36,6 +36,7 @@ namespace InputRecorder
 
             RecordButton.Checked += RecordButton_Checked;
             RecordButton.Unchecked += RecordButton_Unchecked;
+            ReplayButton.Click += ReplayButton_Click;
             Closing += (o, e) => RecordButton_Unchecked(o, null);
 
             actions.CollectionChanged += (o, e) =>
@@ -47,9 +48,23 @@ namespace InputRecorder
             };
         }
 
+        void ReplayButton_Click(object sender, RoutedEventArgs e)
+        {
+            ReplayButton.IsEnabled = false;
+
+            Task.Run(() =>
+            {
+                workflow.Start();
+
+                Dispatcher.InvokeAsync(() => ReplayButton.IsEnabled = true);
+            });
+        }
+
         void RecordButton_Checked(object sender, RoutedEventArgs e)
         {
             RecordButton.Content = "Recording...";
+            workflow.Activities.Clear();
+            actions.Clear();
             MouseHook.AddEvent(MouseNotified);
             KeyboardHook.AddEvent(KeyboardNotified);
             MouseHook.Start();
@@ -68,8 +83,6 @@ namespace InputRecorder
             {
                 XamlServices.Save($@"{OutputDirName}\{DateTime.Now:yyyyMMdd-HHmmss}.xaml", workflow);
                 File.WriteAllLines($@"{OutputDirName}\{DateTime.Now:yyyyMMdd-HHmmss}.txt", actions, Encoding.UTF8);
-                workflow.Activities.Clear();
-                actions.Clear();
             }
         }
 

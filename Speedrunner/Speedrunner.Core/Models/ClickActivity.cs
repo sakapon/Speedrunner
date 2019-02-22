@@ -19,7 +19,7 @@ namespace TasSample.Models
         {
             if (string.IsNullOrEmpty(this.LocationName))
             {
-                ScreenManager.Click();
+                ScreenManager.Click(Point);
             }
             else
             {

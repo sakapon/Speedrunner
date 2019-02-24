@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Threading;
 using System.Windows.Markup;
 
 namespace Speedrunner.Activities
@@ -21,6 +22,29 @@ namespace Speedrunner.Activities
         {
             foreach (var activity in Activities)
                 activity.Execute(context);
+        }
+    }
+
+    [ContentProperty("Timeout")]
+    public class DelayActivity : Activity
+    {
+        [DefaultValue(0)]
+        public int Timeout { get; set; }
+
+        public override void Execute(WorkflowContext context)
+        {
+            Sleep(Timeout);
+
+            ExecuteAfterDelay();
+        }
+
+        protected virtual void ExecuteAfterDelay() { }
+
+        static void Sleep(int timeoutInMilliseconds)
+        {
+            if (timeoutInMilliseconds <= 0) return;
+
+            Thread.Sleep(timeoutInMilliseconds);
         }
     }
 }

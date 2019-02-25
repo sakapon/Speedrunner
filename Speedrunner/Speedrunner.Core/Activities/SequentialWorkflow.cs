@@ -9,5 +9,18 @@ namespace Speedrunner.Activities
     {
         [DefaultValue("")]
         public string Name { get; set; } = "";
+
+        public override void Execute(WorkflowContext context)
+        {
+            try
+            {
+                base.Execute(context);
+            }
+            catch (Exception ex)
+            {
+                context.IsReturned = true;
+                context.Error = ex;
+            }
+        }
     }
 }

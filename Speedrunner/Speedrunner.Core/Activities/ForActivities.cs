@@ -3,16 +3,16 @@ using System.ComponentModel;
 
 namespace Speedrunner.Activities
 {
-    public class ForRangeActivity : CompositeActivity
+    public class ForRange : CompositeActivity
     {
         [DefaultValue("i")]
-        public string VariableName { get; set; }
+        public string VariableName { get; set; } = "i";
         [DefaultValue(0)]
         public int StartNumber { get; set; }
         [DefaultValue(0)]
         public int RepeatCount { get; set; }
         [DefaultValue(1)]
-        public int Step { get; set; }
+        public int Step { get; set; } = 1;
 
         public override void Execute(WorkflowContext context)
         {
@@ -28,6 +28,7 @@ namespace Speedrunner.Activities
             {
                 varN.Value = n;
                 base.Execute(context);
+                if (context.IsReturned) return;
                 n += Step;
             }
         }

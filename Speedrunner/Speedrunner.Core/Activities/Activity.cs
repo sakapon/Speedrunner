@@ -28,7 +28,7 @@ namespace Speedrunner.Activities
         }
     }
 
-    public class ReturnActivity : Activity
+    public class Return : Activity
     {
         public override void Execute(WorkflowContext context)
         {
@@ -37,7 +37,7 @@ namespace Speedrunner.Activities
     }
 
     [ContentProperty("Timeout")]
-    public class DelayActivity : Activity
+    public class Delay : Activity
     {
         [DefaultValue(0)]
         public int Timeout { get; set; }

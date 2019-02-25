@@ -8,6 +8,7 @@ namespace Speedrunner.Activities
     public class WorkflowContext
     {
         public bool IsReturned { get; set; }
+        public Exception Error { get; set; }
         public Activity Root { get; set; }
         public Point BasePosition { get; set; }
         public VariableCollection Variables { get; set; }

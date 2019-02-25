@@ -21,7 +21,18 @@ namespace Speedrunner.Activities
         public override void Execute(WorkflowContext context)
         {
             foreach (var activity in Activities)
+            {
                 activity.Execute(context);
+                if (context.IsReturned) return;
+            }
+        }
+    }
+
+    public class ReturnActivity : Activity
+    {
+        public override void Execute(WorkflowContext context)
+        {
+            context.IsReturned = true;
         }
     }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 
 namespace Speedrunner.Activities
 {
@@ -32,5 +33,57 @@ namespace Speedrunner.Activities
                 n += Step;
             }
         }
+    }
+
+    public class ForDuration : CompositeActivity
+    {
+        [DefaultValue("00:00:00")]
+        public TimeSpan Duration { get; set; }
+
+        [DefaultValue(ActivitiesUnit.One)]
+        public ActivitiesUnit CheckingTimeUnit { get; set; }
+
+        public override void Execute(WorkflowContext context)
+        {
+            var stopwatch = Stopwatch.StartNew();
+
+            try
+            {
+                switch (CheckingTimeUnit)
+                {
+                    case ActivitiesUnit.One:
+                        while (stopwatch.Elapsed < Duration)
+                        {
+                            foreach (var activity in Activities)
+                            {
+                                if (stopwatch.Elapsed >= Duration) return;
+                                activity.Execute(context);
+                                if (context.IsReturned) return;
+                            }
+                        }
+                        break;
+
+                    case ActivitiesUnit.All:
+                        while (stopwatch.Elapsed < Duration)
+                        {
+                            base.Execute(context);
+                        }
+                        break;
+
+                    default:
+                        throw new InvalidOperationException();
+                }
+            }
+            finally
+            {
+                stopwatch.Stop();
+            }
+        }
+    }
+
+    public enum ActivitiesUnit
+    {
+        One,
+        All,
     }
 }

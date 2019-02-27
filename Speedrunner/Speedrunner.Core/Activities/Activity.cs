@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace Speedrunner.Activities
     public abstract class CompositeActivity : Activity
     {
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public ActivityCollection Activities { get; } = new ActivityCollection();
+        public Collection<Activity> Activities { get; } = new Collection<Activity>();
 
         public override void Execute(WorkflowContext context)
         {

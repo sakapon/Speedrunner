@@ -1,0 +1,5 @@
+﻿<WorkflowVariables xmlns="http://schemas.saka-pon.net/speedrunner/models" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Variable x:TypeArguments="x:Int32" Name="i" Value="123" />
+  <Variable x:TypeArguments="x:Double" Name="sum" Value="1" />
+  <Variable x:TypeArguments="x:String" Name="Message" Value="Hello" />
+</WorkflowVariables>

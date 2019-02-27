@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows;
+using System.Windows.Markup;
 
 namespace Speedrunner.Activities
 {
@@ -14,12 +15,22 @@ namespace Speedrunner.Activities
         public VariableCollection Variables { get; } = new VariableCollection();
     }
 
-    [DebuggerDisplay(@"\{{Name}: {Value}\}")]
-    public class Variable
+    [ContentProperty("Variables")]
+    public class WorkflowVariables
+    {
+        public VariableCollection Variables { get; } = new VariableCollection();
+    }
+
+    public abstract class Variable
     {
         [DefaultValue("")]
         public string Name { get; set; } = "";
-        public Type Type { get; set; }
-        public object Value { get; set; }
+    }
+
+    [DebuggerDisplay(@"\{{Name}: {Value}\}")]
+    public class Variable<T> : Variable
+    {
+        public T Value { get; set; }
+        public Type Type => typeof(T);
     }
 }

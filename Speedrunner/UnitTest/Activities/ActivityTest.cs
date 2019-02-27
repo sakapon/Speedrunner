@@ -25,6 +25,7 @@ namespace UnitTest.Activities
             wf.Activities.Add(forRange);
 
             Assert.AreEqual(expected, XamlServices.Save(wf));
+            var o = (SequentialWorkflow)XamlServices.Parse(expected);
         }
     }
 }

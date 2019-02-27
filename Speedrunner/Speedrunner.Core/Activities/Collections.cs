@@ -4,15 +4,14 @@ using System.Linq;
 
 namespace Speedrunner.Activities
 {
+    [Obsolete]
     public sealed class ActivityCollection : Collection<Activity>
     {
     }
 
     public sealed class VariableCollection : Collection<Variable>
     {
-        public Variable this[string name]
-        {
-            get => this.FirstOrDefault(v => v.Name == name);
-        }
+        public Variable<T> Get<T>(string name) =>
+            (Variable<T>)this.FirstOrDefault(v => v.Name == name);
     }
 }

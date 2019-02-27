@@ -16,4 +16,8 @@
     <ProjectReference Include="..\Speedrunner.Core\Speedrunner.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="System.Xaml" />
+  </ItemGroup>
+
 </Project>

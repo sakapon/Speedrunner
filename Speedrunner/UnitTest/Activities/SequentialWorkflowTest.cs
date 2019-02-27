@@ -20,7 +20,7 @@ namespace UnitTest.Activities
             context.Variables.Add(new Variable { Name = "sum", Value = 1.0 });
 
             var wf = new SequentialWorkflow();
-            var forRange = new ForRange { StartNumber = 3, RepeatCount = 50, Step = 2 };
+            var forRange = new ForRange { Start = 3, Count = 50, Step = 2 };
             forRange.Activities.Add(new CodeActivity { Type = typeof(SequentialWorkflowTest), MethodName = "NextP" });
             forRange.Activities.Add(new CodeActivity { Type = typeof(SequentialWorkflowTest), MethodName = "AddTerm" });
             wf.Activities.Add(forRange);

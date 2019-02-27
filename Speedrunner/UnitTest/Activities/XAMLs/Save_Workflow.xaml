@@ -1,6 +1,6 @@
 ﻿<SequentialWorkflow Name="Test" xmlns="http://schemas.saka-pon.net/speedrunner/models">
   <Delay Timeout="300" />
-  <ForRange RepeatCount="10" StartNumber="3">
+  <ForRange Count="10" Start="3">
     <Delay Timeout="300" />
     <Delay Timeout="300" />
   </ForRange>

@@ -19,7 +19,7 @@ namespace UnitTest.Activities
 
             var wf = new SequentialWorkflow { Name = "Test" };
             wf.Activities.Add(new Delay { Timeout = 300 });
-            var forRange = new ForRange { StartNumber = 3, RepeatCount = 10 };
+            var forRange = new ForRange { Start = 3, Count = 10 };
             forRange.Activities.Add(new Delay { Timeout = 300 });
             forRange.Activities.Add(new Delay { Timeout = 300 });
             wf.Activities.Add(forRange);

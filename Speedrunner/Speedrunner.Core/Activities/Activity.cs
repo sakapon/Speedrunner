@@ -38,7 +38,7 @@ namespace Speedrunner.Activities
         }
     }
 
-    [ContentProperty("Timeout")]
+    [DebuggerDisplay(@"\{{GetType().Name}: {Timeout} ms\}")]
     public class Delay : Activity
     {
         [DefaultValue(0)]
@@ -61,7 +61,7 @@ namespace Speedrunner.Activities
         }
     }
 
-    [DebuggerDisplay(@"\{{Type.Name}.{MethodName}\}")]
+    [DebuggerDisplay(@"\{{GetType().Name}: {Type.Name}.{MethodName}\}")]
     public class CodeActivity : Activity
     {
         public Type Type { get; set; }

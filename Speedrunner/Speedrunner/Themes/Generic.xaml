@@ -28,11 +28,11 @@
                         <StackPanel>
                             <TextBlock>
                                 <Run Text="ForRange: "/>
-                                <Run Text="{Binding VariableName, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                <Run Text="{TemplateBinding VariableName}"/>
                                 <Run Text=" = "/>
                                 <Run Text="{Binding Start, RelativeSource={RelativeSource TemplatedParent}}"/>
                             </TextBlock>
-                            <ItemsPresenter/>
+                            <ItemsPresenter Margin="{TemplateBinding ItemsMargin}"/>
                         </StackPanel>
                     </Border>
                 </ControlTemplate>

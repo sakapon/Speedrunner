@@ -17,6 +17,7 @@
             <sr:Delay/>
             <sr:ForRange Start="123">
                 <sr:Delay Timeout="300"/>
+                <sr:Code Type="{x:Type local:MainWindow}" MethodName="Method1"/>
                 <TextBlock Text="TextBlock"/>
                 <sr:Return/>
             </sr:ForRange>

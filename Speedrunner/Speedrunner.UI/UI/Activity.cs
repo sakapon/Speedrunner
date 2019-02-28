@@ -32,4 +32,32 @@ namespace Speedrunner.UI
             DefaultStyleKeyProperty.OverrideMetadata(typeof(Delay), new FrameworkPropertyMetadata(typeof(Delay)));
         }
     }
+
+    public class Code : Control
+    {
+        public static readonly DependencyProperty TypeProperty =
+            DependencyProperty.Register("Type", typeof(Type), typeof(Code), new PropertyMetadata(null));
+
+        public static readonly DependencyProperty MethodNameProperty =
+            DependencyProperty.Register("MethodName", typeof(string), typeof(Code), new PropertyMetadata(""));
+
+        [Category("Activity")]
+        public Type Type
+        {
+            get { return (Type)GetValue(TypeProperty); }
+            set { SetValue(TypeProperty, value); }
+        }
+
+        [Category("Activity")]
+        public string MethodName
+        {
+            get { return (string)GetValue(MethodNameProperty); }
+            set { SetValue(MethodNameProperty, value); }
+        }
+
+        static Code()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(Code), new FrameworkPropertyMetadata(typeof(Code)));
+        }
+    }
 }

@@ -55,10 +55,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="UILab\Delay.cs" />
-    <Compile Include="UILab\ForRange.cs" />
-    <Compile Include="UI\Activity.cs" />
-    <Compile Include="UI\ForActivities.cs" />
+    <Compile Include="UILab\Delay0.cs" />
+    <Compile Include="UILab\ForRange0.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -72,10 +70,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Themes\Generic.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\GenericLab.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -110,6 +104,10 @@
     <ProjectReference Include="..\Speedrunner.Core\Speedrunner.Core.csproj">
       <Project>{f36628e5-5e09-4e6d-8ea0-352f542e736a}</Project>
       <Name>Speedrunner.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Speedrunner.UI\Speedrunner.UI.csproj">
+      <Project>{47f06d6c-4fcc-4b2b-aa79-177ec797ad07}</Project>
+      <Name>Speedrunner.UI</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

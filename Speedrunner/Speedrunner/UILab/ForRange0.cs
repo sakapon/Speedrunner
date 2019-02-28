@@ -42,24 +42,44 @@ namespace Speedrunner.UILab
     /// 手順 2)
     /// コントロールを XAML ファイルで使用します。
     ///
-    ///     <MyNamespace:Delay/>
+    ///     <MyNamespace:ForRange/>
     ///
     /// </summary>
-    public class Delay : Control
+    public class ForRange0 : ItemsControl
     {
-        public static readonly DependencyProperty TimeoutProperty =
-            DependencyProperty.Register("Timeout", typeof(int), typeof(Delay), new PropertyMetadata(0));
+        public static readonly DependencyProperty ItemsMarginProperty =
+            DependencyProperty.Register("ItemsMargin", typeof(Thickness), typeof(ForRange0), new PropertyMetadata(new Thickness(20, 0, 0, 0)));
 
-        [Category("Activity")]
-        public int Timeout
+        [Category("Layout")]
+        public Thickness ItemsMargin
         {
-            get { return (int)GetValue(TimeoutProperty); }
-            set { SetValue(TimeoutProperty, value); }
+            get { return (Thickness)GetValue(ItemsMarginProperty); }
+            set { SetValue(ItemsMarginProperty, value); }
         }
 
-        static Delay()
+        public static readonly DependencyProperty VariableNameProperty =
+            DependencyProperty.Register("VariableName", typeof(string), typeof(ForRange0), new PropertyMetadata("i"));
+
+        public static readonly DependencyProperty StartProperty =
+            DependencyProperty.Register("Start", typeof(int), typeof(ForRange0), new PropertyMetadata(0));
+
+        [Category("Activity")]
+        public string VariableName
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(Delay), new FrameworkPropertyMetadata(typeof(Delay)));
+            get { return (string)GetValue(VariableNameProperty); }
+            set { SetValue(VariableNameProperty, value); }
+        }
+
+        [Category("Activity")]
+        public int Start
+        {
+            get { return (int)GetValue(StartProperty); }
+            set { SetValue(StartProperty, value); }
+        }
+
+        static ForRange0()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(ForRange0), new FrameworkPropertyMetadata(typeof(ForRange0)));
         }
     }
 }

@@ -42,44 +42,24 @@ namespace Speedrunner.UILab
     /// 手順 2)
     /// コントロールを XAML ファイルで使用します。
     ///
-    ///     <MyNamespace:ForRange/>
+    ///     <MyNamespace:Delay/>
     ///
     /// </summary>
-    public class ForRange : ItemsControl
+    public class Delay0 : Control
     {
-        public static readonly DependencyProperty ItemsMarginProperty =
-            DependencyProperty.Register("ItemsMargin", typeof(Thickness), typeof(ForRange), new PropertyMetadata(new Thickness(20, 0, 0, 0)));
-
-        [Category("Layout")]
-        public Thickness ItemsMargin
-        {
-            get { return (Thickness)GetValue(ItemsMarginProperty); }
-            set { SetValue(ItemsMarginProperty, value); }
-        }
-
-        public static readonly DependencyProperty VariableNameProperty =
-            DependencyProperty.Register("VariableName", typeof(string), typeof(ForRange), new PropertyMetadata("i"));
-
-        public static readonly DependencyProperty StartProperty =
-            DependencyProperty.Register("Start", typeof(int), typeof(ForRange), new PropertyMetadata(0));
+        public static readonly DependencyProperty TimeoutProperty =
+            DependencyProperty.Register("Timeout", typeof(int), typeof(Delay0), new PropertyMetadata(0));
 
         [Category("Activity")]
-        public string VariableName
+        public int Timeout
         {
-            get { return (string)GetValue(VariableNameProperty); }
-            set { SetValue(VariableNameProperty, value); }
+            get { return (int)GetValue(TimeoutProperty); }
+            set { SetValue(TimeoutProperty, value); }
         }
 
-        [Category("Activity")]
-        public int Start
+        static Delay0()
         {
-            get { return (int)GetValue(StartProperty); }
-            set { SetValue(StartProperty, value); }
-        }
-
-        static ForRange()
-        {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(ForRange), new FrameworkPropertyMetadata(typeof(ForRange)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(Delay0), new FrameworkPropertyMetadata(typeof(Delay0)));
         }
     }
 }

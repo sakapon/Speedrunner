@@ -35,20 +35,20 @@ namespace Speedrunner.UI
     /// リビルドして、コンパイル エラーを防ぐ必要があります:
     ///
     ///     ソリューション エクスプローラーで対象のプロジェクトを右クリックし、
-    ///     [参照の追加] の [プロジェクト] を選択してから、このプロジェクトを選択します。
+    ///     [参照の追加] の [プロジェクト] を選択してから、このプロジェクトを参照し、選択します。
     ///
     ///
     /// 手順 2)
     /// コントロールを XAML ファイルで使用します。
     ///
-    ///     <MyNamespace:CustomControl1/>
+    ///     <MyNamespace:ForRange/>
     ///
     /// </summary>
-    public class CustomControl1 : Control
+    public class ForRange : Control
     {
-        static CustomControl1()
+        static ForRange()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(CustomControl1), new FrameworkPropertyMetadata(typeof(CustomControl1)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(ForRange), new FrameworkPropertyMetadata(typeof(ForRange)));
         }
     }
 }

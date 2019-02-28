@@ -3,6 +3,7 @@ using System.Resources;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Markup;
 
 // アセンブリに関する一般情報は以下の属性セットをとおして制御されます。
 // アセンブリに関連付けられている情報を変更するには、
@@ -53,3 +54,6 @@ using System.Windows;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("2.0.1.0")]
 [assembly: AssemblyFileVersion("2.0.1")]
+
+[assembly: XmlnsDefinition("http://schemas.saka-pon.net/speedrunner/ui", "Speedrunner.UI")]
+[assembly: XmlnsPrefix("http://schemas.saka-pon.net/speedrunner/ui", "sr")]

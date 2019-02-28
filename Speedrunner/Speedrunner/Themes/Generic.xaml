@@ -11,8 +11,7 @@
                     <Border Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">
-                        <TextBlock Text="{Binding Timeout, RelativeSource={RelativeSource TemplatedParent}, StringFormat=Delay: \{0\} ms}"
-                                   VerticalAlignment="Center"/>
+                        <TextBlock Text="{Binding Timeout, RelativeSource={RelativeSource TemplatedParent}, StringFormat=Delay: \{0\} ms}"/>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
@@ -26,6 +25,15 @@
                     <Border Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">
+                        <StackPanel>
+                            <TextBlock>
+                                <Run Text="ForRange: "/>
+                                <Run Text="{Binding VariableName, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                <Run Text=" = "/>
+                                <Run Text="{Binding Start, RelativeSource={RelativeSource TemplatedParent}}"/>
+                            </TextBlock>
+                            <ItemsPresenter/>
+                        </StackPanel>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>

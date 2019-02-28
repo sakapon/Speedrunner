@@ -9,7 +9,6 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
@@ -46,8 +45,7 @@ namespace Speedrunner.UILab
     ///     <MyNamespace:ForRange/>
     ///
     /// </summary>
-    [ContentProperty("Activities")]
-    public class ForRange : Control
+    public class ForRange : ItemsControl
     {
         public static readonly DependencyProperty VariableNameProperty =
             DependencyProperty.Register("VariableName", typeof(string), typeof(ForRange), new PropertyMetadata("i"));
@@ -55,29 +53,23 @@ namespace Speedrunner.UILab
         public static readonly DependencyProperty StartProperty =
             DependencyProperty.Register("Start", typeof(int), typeof(ForRange), new PropertyMetadata(0));
 
+        [Category("Activity")]
         public string VariableName
         {
             get { return (string)GetValue(VariableNameProperty); }
             set { SetValue(VariableNameProperty, value); }
         }
 
+        [Category("Activity")]
         public int Start
         {
             get { return (int)GetValue(StartProperty); }
             set { SetValue(StartProperty, value); }
         }
 
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public UIElementCollection Activities { get; }
-
         static ForRange()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ForRange), new FrameworkPropertyMetadata(typeof(ForRange)));
-        }
-
-        public ForRange()
-        {
-            Activities = new UIElementCollection(this, this);
         }
     }
 }

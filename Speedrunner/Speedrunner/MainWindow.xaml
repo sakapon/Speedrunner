@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Speedrunner"
-        xmlns:UILab="clr-namespace:Speedrunner.UILab"
+        xmlns:UI="clr-namespace:Speedrunner.UI"
         x:Class="Speedrunner.MainWindow"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
@@ -14,11 +14,11 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <StackPanel>
-            <UILab:Delay/>
-            <UILab:ForRange Start="123">
-                <UILab:Delay Timeout="300"/>
+            <UI:Delay/>
+            <UI:ForRange Start="123">
+                <UI:Delay Timeout="300"/>
                 <TextBlock Text="TextBlock"/>
-            </UILab:ForRange>
+            </UI:ForRange>
         </StackPanel>
     </Grid>
 </Window>

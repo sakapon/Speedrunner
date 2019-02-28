@@ -57,8 +57,8 @@
     </ApplicationDefinition>
     <Compile Include="UILab\Delay.cs" />
     <Compile Include="UILab\ForRange.cs" />
-    <Compile Include="UI\Delay.cs" />
-    <Compile Include="UI\ForRange.cs" />
+    <Compile Include="UI\Activity.cs" />
+    <Compile Include="UI\ForActivities.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

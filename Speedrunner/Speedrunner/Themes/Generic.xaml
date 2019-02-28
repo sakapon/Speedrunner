@@ -11,6 +11,8 @@
                     <Border Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">
+                        <TextBlock Text="{Binding Timeout, RelativeSource={RelativeSource TemplatedParent}, StringFormat=Delay: \{0\} ms}"
+                                   VerticalAlignment="Center"/>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>

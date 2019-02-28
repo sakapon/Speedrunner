@@ -6,3 +6,5 @@ using System.Windows.Markup;
 [assembly: XmlnsPrefix("http://schemas.saka-pon.net/uiAutoRun", "uar")]
 [assembly: XmlnsDefinition("http://schemas.saka-pon.net/speedrunner/models", "Speedrunner.Activities")]
 [assembly: XmlnsPrefix("http://schemas.saka-pon.net/speedrunner/models", "sr")]
+[assembly: XmlnsDefinition("http://schemas.saka-pon.net/speedrunner/ui", "Speedrunner.ActivitiesUI")]
+[assembly: XmlnsPrefix("http://schemas.saka-pon.net/speedrunner/ui", "sr")]

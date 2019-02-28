@@ -18,6 +18,7 @@
             <UI:ForRange Start="123">
                 <UI:Delay Timeout="300"/>
                 <TextBlock Text="TextBlock"/>
+                <UI:Return/>
             </UI:ForRange>
         </StackPanel>
     </Grid>

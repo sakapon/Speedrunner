@@ -7,6 +7,14 @@ using System.Windows.Controls;
 
 namespace Speedrunner.UI
 {
+    public class Return : Control
+    {
+        static Return()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(Return), new FrameworkPropertyMetadata(typeof(Return)));
+        }
+    }
+
     public class Delay : Control
     {
         public static readonly DependencyProperty TimeoutProperty =

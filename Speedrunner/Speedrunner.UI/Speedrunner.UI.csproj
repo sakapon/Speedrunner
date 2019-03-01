@@ -49,6 +49,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActivityHelper.cs" />
     <Compile Include="UI\Activity.cs" />
     <Compile Include="UI\ForActivities.cs" />
     <Compile Include="UI\SequentialWorkflow.cs" />

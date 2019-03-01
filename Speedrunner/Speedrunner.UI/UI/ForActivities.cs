@@ -25,14 +25,14 @@ namespace Speedrunner.UI
         public static readonly DependencyProperty StartProperty =
             DependencyProperty.Register("Start", typeof(int), typeof(ForRange), new PropertyMetadata(0));
 
-        [Category("Activity")]
+        [Category(Constants.CategoryName)]
         public string VariableName
         {
             get { return (string)GetValue(VariableNameProperty); }
             set { SetValue(VariableNameProperty, value); }
         }
 
-        [Category("Activity")]
+        [Category(Constants.CategoryName)]
         public int Start
         {
             get { return (int)GetValue(StartProperty); }

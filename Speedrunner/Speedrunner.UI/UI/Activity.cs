@@ -7,6 +7,11 @@ using System.Windows.Controls;
 
 namespace Speedrunner.UI
 {
+    static class Constants
+    {
+        public const string CategoryName = "Activity";
+    }
+
     public class Return : Control
     {
         static Return()
@@ -20,7 +25,7 @@ namespace Speedrunner.UI
         public static readonly DependencyProperty TimeoutProperty =
             DependencyProperty.Register("Timeout", typeof(int), typeof(Delay), new PropertyMetadata(0));
 
-        [Category("Activity")]
+        [Category(Constants.CategoryName)]
         public int Timeout
         {
             get { return (int)GetValue(TimeoutProperty); }
@@ -41,14 +46,14 @@ namespace Speedrunner.UI
         public static readonly DependencyProperty MethodNameProperty =
             DependencyProperty.Register("MethodName", typeof(string), typeof(Code), new PropertyMetadata(""));
 
-        [Category("Activity")]
+        [Category(Constants.CategoryName)]
         public Type Type
         {
             get { return (Type)GetValue(TypeProperty); }
             set { SetValue(TypeProperty, value); }
         }
 
-        [Category("Activity")]
+        [Category(Constants.CategoryName)]
         public string MethodName
         {
             get { return (string)GetValue(MethodNameProperty); }

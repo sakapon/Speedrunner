@@ -8,7 +8,7 @@ namespace Speedrunner.Activities
     public class SequentialWorkflow : CompositeActivity
     {
         [DefaultValue("")]
-        public string Name { get; set; } = "";
+        public string Title { get; set; } = "";
 
         public override void Execute(WorkflowContext context)
         {

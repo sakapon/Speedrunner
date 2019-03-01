@@ -7,9 +7,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:Return}">
-                    <Border Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}">
+                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
                         <TextBlock Text="Return"/>
                     </Border>
                 </ControlTemplate>
@@ -21,9 +19,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:Delay}">
-                    <Border Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}">
+                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
                         <TextBlock Text="{Binding Timeout, RelativeSource={RelativeSource TemplatedParent}, StringFormat=Delay: \{0\} ms}"/>
                     </Border>
                 </ControlTemplate>
@@ -35,9 +31,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:Code}">
-                    <Border Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}">
+                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
                         <TextBlock>
                             <Run Text="Code: "/>
                             <Run Text="{Binding Type.Name, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"/>
@@ -54,9 +48,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:ForRange}">
-                    <Border Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}">
+                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
                         <StackPanel>
                             <TextBlock>
                                 <Run Text="ForRange: "/>
@@ -69,6 +61,21 @@
                                 <Run Text="{Binding Step, RelativeSource={RelativeSource TemplatedParent}}"/>
                             </TextBlock>
                             <ItemsPresenter Margin="{TemplateBinding ItemsMargin}"/>
+                        </StackPanel>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type local:SequentialWorkflow}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:SequentialWorkflow}">
+                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                        <StackPanel>
+                            <TextBlock Text="{Binding Title, RelativeSource={RelativeSource TemplatedParent}}" Background="#FFCCDDFF" Padding="8,2"/>
+                            <ItemsPresenter Margin="8,2"/>
                         </StackPanel>
                     </Border>
                 </ControlTemplate>

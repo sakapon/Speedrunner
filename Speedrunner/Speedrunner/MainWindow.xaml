@@ -7,13 +7,13 @@
         xmlns:sr="http://schemas.saka-pon.net/speedrunner/ui"
         x:Class="Speedrunner.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MainWindow" Height="600" Width="900" FontSize="20">
+    <Grid Margin="20">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <StackPanel>
+        <sr:SequentialWorkflow Title="テスト">
             <sr:Delay/>
             <sr:ForRange Start="123">
                 <sr:Delay Timeout="300"/>
@@ -21,6 +21,6 @@
                 <TextBlock Text="TextBlock"/>
                 <sr:Return/>
             </sr:ForRange>
-        </StackPanel>
+        </sr:SequentialWorkflow>
     </Grid>
 </Window>

@@ -61,8 +61,12 @@
                             <TextBlock>
                                 <Run Text="ForRange: "/>
                                 <Run Text="{TemplateBinding VariableName}"/>
-                                <Run Text=" = "/>
+                                <Run Text="="/>
                                 <Run Text="{Binding Start, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                <Run Text=", Count:"/>
+                                <Run Text="{Binding Count, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                <Run Text=", Step:"/>
+                                <Run Text="{Binding Step, RelativeSource={RelativeSource TemplatedParent}}"/>
                             </TextBlock>
                             <ItemsPresenter Margin="{TemplateBinding ItemsMargin}"/>
                         </StackPanel>

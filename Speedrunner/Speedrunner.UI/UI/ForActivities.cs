@@ -25,6 +25,12 @@ namespace Speedrunner.UI
         public static readonly DependencyProperty StartProperty =
             DependencyProperty.Register("Start", typeof(int), typeof(ForRange), new PropertyMetadata(0));
 
+        public static readonly DependencyProperty CountProperty =
+            DependencyProperty.Register("Count", typeof(int), typeof(ForRange), new PropertyMetadata(0));
+
+        public static readonly DependencyProperty StepProperty =
+            DependencyProperty.Register("Step", typeof(int), typeof(ForRange), new PropertyMetadata(1));
+
         [Category(Constants.CategoryName)]
         public string VariableName
         {
@@ -37,6 +43,20 @@ namespace Speedrunner.UI
         {
             get { return (int)GetValue(StartProperty); }
             set { SetValue(StartProperty, value); }
+        }
+
+        [Category(Constants.CategoryName)]
+        public int Count
+        {
+            get { return (int)GetValue(CountProperty); }
+            set { SetValue(CountProperty, value); }
+        }
+
+        [Category(Constants.CategoryName)]
+        public int Step
+        {
+            get { return (int)GetValue(StepProperty); }
+            set { SetValue(StepProperty, value); }
         }
 
         static ForRange()

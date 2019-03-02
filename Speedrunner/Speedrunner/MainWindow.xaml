@@ -14,13 +14,13 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <sr:SequentialWorkflow Title="テスト">
-            <sr:Delay/>
-            <sr:ForRange Start="123">
-                <sr:Delay Timeout="300"/>
-                <sr:Code Type="{x:Type local:MainWindow}" MethodName="Method1"/>
+            <sr:Delay Timeout="300"/>
+            <sr:ForRange Start="3" Count="50" Step="2">
                 <TextBlock Text="TextBlock"/>
-                <sr:Return/>
+                <sr:Code Type="{x:Type local:MainWindow}" MethodName="NextP"/>
+                <sr:Code Type="{x:Type local:MainWindow}" MethodName="AddTerm"/>
             </sr:ForRange>
+            <sr:Code Type="{x:Type local:MainWindow}" MethodName="Sqrt12"/>
         </sr:SequentialWorkflow>
     </Grid>
 </Window>

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Speedrunner.Activities;
 
 namespace Speedrunner
 {
@@ -23,6 +24,26 @@ namespace Speedrunner
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        public static void NextP(WorkflowContext context)
+        {
+            var varP = context.Variables.Get<double>("p");
+            varP.Value *= -3;
+        }
+
+        public static void AddTerm(WorkflowContext context)
+        {
+            var varSum = context.Variables.Get<double>("sum");
+            var p = context.Variables.Get<double>("p").Value;
+            var i = context.Variables.Get<int>("i").Value;
+            varSum.Value += 1 / (i * p);
+        }
+
+        public static void Sqrt12(WorkflowContext context)
+        {
+            var varSum = context.Variables.Get<double>("sum");
+            varSum.Value *= Math.Sqrt(12);
         }
     }
 }

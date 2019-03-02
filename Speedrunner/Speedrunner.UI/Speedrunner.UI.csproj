@@ -53,6 +53,7 @@
     <Compile Include="UI\Activity.cs" />
     <Compile Include="UI\ForActivities.cs" />
     <Compile Include="UI\SequentialWorkflow.cs" />
+    <Compile Include="UI\WorkflowContext.cs" />
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

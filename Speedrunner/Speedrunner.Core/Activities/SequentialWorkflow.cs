@@ -4,7 +4,7 @@ using System.Diagnostics;
 
 namespace Speedrunner.Activities
 {
-    [DebuggerDisplay(@"\{{Name}\}")]
+    [DebuggerDisplay(@"\{{Title}\}")]
     public class SequentialWorkflow : CompositeActivity
     {
         [DefaultValue("")]

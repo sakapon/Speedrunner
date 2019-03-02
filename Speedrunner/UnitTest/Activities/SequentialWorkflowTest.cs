@@ -21,10 +21,10 @@ namespace UnitTest.Activities
 
             var wf = new SequentialWorkflow();
             var forRange = new ForRange { Start = 3, Count = 50, Step = 2 };
-            forRange.Activities.Add(new CodeActivity { Type = typeof(SequentialWorkflowTest), MethodName = "NextP" });
-            forRange.Activities.Add(new CodeActivity { Type = typeof(SequentialWorkflowTest), MethodName = "AddTerm" });
+            forRange.Activities.Add(new Code { Type = typeof(SequentialWorkflowTest), MethodName = "NextP" });
+            forRange.Activities.Add(new Code { Type = typeof(SequentialWorkflowTest), MethodName = "AddTerm" });
             wf.Activities.Add(forRange);
-            wf.Activities.Add(new CodeActivity { Type = typeof(SequentialWorkflowTest), MethodName = "Sqrt12" });
+            wf.Activities.Add(new Code { Type = typeof(SequentialWorkflowTest), MethodName = "Sqrt12" });
 
             wf.Execute(context);
 

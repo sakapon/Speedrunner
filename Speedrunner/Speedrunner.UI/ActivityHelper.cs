@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Markup;
 
 namespace Speedrunner
 {
@@ -15,35 +17,34 @@ namespace Speedrunner
                 .Where(t => t.Namespace == typeof(Activities.Activity).Namespace)
                 .ToDictionary(t => t.Name);
 
-        public static Activities.Activity ToActivity(Control control)
+        public static object ToModel(this Control control)
         {
             var uiType = control.GetType();
             if (uiType.Namespace != typeof(UI.Constants).Namespace) return null;
 
             var type = ActivityTypes[uiType.Name];
-            if (!type.IsSubclassOf(typeof(Activities.Activity))) return null;
-
-            var activity = (Activities.Activity)Activator.CreateInstance(type);
+            var model = Activator.CreateInstance(type);
 
             // Copies property values.
             var properties = uiType.GetProperties()
                 .Where(p => p.GetCustomAttribute<CategoryAttribute>()?.Category == UI.Constants.CategoryName)
                 .ToDictionary(p => p.Name, p => p.GetValue(control));
             foreach (var p in properties)
-                type.GetProperty(p.Key).SetValue(activity, p.Value);
+                type.GetProperty(p.Key).SetValue(model, p.Value);
 
             // Adds children.
             if ((control is ItemsControl ic) && !ic.Items.IsEmpty)
             {
-                var activities = (ICollection<Activities.Activity>)type.GetProperty("Activities").GetValue(activity);
+                var collectionName = type.GetCustomAttribute<ContentPropertyAttribute>().Name;
+                var collection = (IList)type.GetProperty(collectionName).GetValue(model);
                 var children = ic.Items.OfType<Control>()
-                    .Select(ToActivity)
+                    .Select(ToModel)
                     .Where(a => a != null);
                 foreach (var child in children)
-                    activities.Add(child);
+                    collection.Add(child);
             }
 
-            return activity;
+            return model;
         }
 
         public static UI.SequentialWorkflow FindSequentialWorkflow(DependencyObject obj)
@@ -53,9 +54,16 @@ namespace Speedrunner
                 .FirstOrDefault();
         }
 
+        public static UI.WorkflowVariables FindWorkflowVariables(DependencyObject obj)
+        {
+            return GetLogicalDescendants(obj)
+                .OfType<UI.WorkflowVariables>()
+                .FirstOrDefault();
+        }
+
         public static IEnumerable<DependencyObject> GetLogicalDescendants(DependencyObject obj)
         {
-            foreach (DependencyObject child in LogicalTreeHelper.GetChildren(obj))
+            foreach (var child in LogicalTreeHelper.GetChildren(obj).OfType<DependencyObject>())
             {
                 yield return child;
 

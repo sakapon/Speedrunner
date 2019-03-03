@@ -9,6 +9,9 @@
         x:Class="Speedrunner.MainWindow"
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="900" FontSize="20">
+    <Window.DataContext>
+        <local:MainViewModel/>
+    </Window.DataContext>
     <Grid Margin="20">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -33,7 +36,7 @@
                 <sr:Variable Type="{x:Type System:Double}" VariableName="sum" Value="1"/>
                 <sr:Variable Type="{x:Type System:Double}" VariableName="p" Value="1"/>
             </sr:WorkflowVariables>
-            <Button Content="Start" Width="120" Margin="10" Grid.Row="2"/>
+            <Button x:Name="StartButton" Content="Start" Width="120" Margin="10" Grid.Row="2"/>
         </Grid>
     </Grid>
 </Window>

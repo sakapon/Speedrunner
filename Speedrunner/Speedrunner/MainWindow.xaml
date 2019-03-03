@@ -23,9 +23,17 @@
             </sr:ForRange>
             <sr:Code Type="{x:Type local:MainWindow}" MethodName="Sqrt12"/>
         </sr:SequentialWorkflow>
-        <sr:WorkflowVariables Grid.Column="1">
-            <sr:Variable Type="{x:Type System:Double}" VariableName="sum" Value="1"/>
-            <sr:Variable Type="{x:Type System:Double}" VariableName="p" Value="1"/>
-        </sr:WorkflowVariables>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <sr:WorkflowVariables>
+                <sr:Variable Type="{x:Type System:Double}" VariableName="sum" Value="1"/>
+                <sr:Variable Type="{x:Type System:Double}" VariableName="p" Value="1"/>
+            </sr:WorkflowVariables>
+            <Button Content="Start" Width="120" Margin="10" Grid.Row="2"/>
+        </Grid>
     </Grid>
 </Window>

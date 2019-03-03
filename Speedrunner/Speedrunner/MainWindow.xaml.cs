@@ -28,22 +28,22 @@ namespace Speedrunner
 
         public static void NextP(WorkflowContext context)
         {
-            var varP = context.Variables.Get<double>("p");
-            varP.Value *= -3;
+            var p = context.Variables.Get<double>("p");
+            p.Value *= -3;
         }
 
         public static void AddTerm(WorkflowContext context)
         {
-            var varSum = context.Variables.Get<double>("sum");
-            var p = context.Variables.Get<double>("p").Value;
-            var i = context.Variables.Get<int>("i").Value;
-            varSum.Value += 1 / (i * p);
+            var sum = context.Variables.Get<double>("sum");
+            var p = context.Variables.Get<double>("p");
+            var i = context.Variables.Get<int>("i");
+            sum.Value += 1 / (i * p);
         }
 
         public static void Sqrt12(WorkflowContext context)
         {
-            var varSum = context.Variables.Get<double>("sum");
-            varSum.Value *= Math.Sqrt(12);
+            var sum = context.Variables.Get<double>("sum");
+            sum.Value *= Math.Sqrt(12);
         }
     }
 }

@@ -19,11 +19,6 @@ namespace Speedrunner.Activities
         public override void Execute(WorkflowContext context)
         {
             var varN = context.Variables.Get<int>(VariableName);
-            if (varN == null)
-            {
-                varN = new Variable<int> { VariableName = VariableName };
-                context.Variables.Add(varN);
-            }
 
             var n = Start;
             for (var i = 0; i < Count; i++)

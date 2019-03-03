@@ -60,5 +60,7 @@ namespace Speedrunner.Activities
         public new Type Type => typeof(T);
         public new T Value { get; set; }
         public new T ActualValue => Value;
+
+        public static implicit operator T(Variable<T> v) => v.Value;
     }
 }

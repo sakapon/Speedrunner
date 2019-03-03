@@ -18,9 +18,9 @@ namespace UnitTest.Activities
             var expected = File.ReadAllText(path);
 
             var vs = new WorkflowVariables();
-            vs.Variables.Add(new Variable<int> { Name = "i", Value = 123 });
-            vs.Variables.Add(new Variable<double> { Name = "sum", Value = 1.0 });
-            vs.Variables.Add(new Variable<string> { Name = "Message", Value = "Hello" });
+            vs.Variables.Add(new Variable { Type = typeof(int), VariableName = "i", Value = "123" });
+            vs.Variables.Add(new Variable { Type = typeof(double), VariableName = "sum", Value = "1.0" });
+            vs.Variables.Add(new Variable { Type = typeof(string), VariableName = "Message", Value = "Hello" });
 
             Assert.AreEqual(expected, XamlServices.Save(vs));
             var o = (WorkflowVariables)XamlServices.Parse(expected);

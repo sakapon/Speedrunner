@@ -24,7 +24,7 @@ namespace Speedrunner.UI
             DependencyProperty.Register("VariableName", typeof(string), typeof(Variable), new PropertyMetadata(""));
 
         public static readonly DependencyProperty ValueProperty =
-            DependencyProperty.Register("Value", typeof(object), typeof(Variable), new PropertyMetadata(null));
+            DependencyProperty.Register("Value", typeof(string), typeof(Variable), new PropertyMetadata(null));
 
         [Category(Constants.CategoryName)]
         public Type Type
@@ -41,9 +41,9 @@ namespace Speedrunner.UI
         }
 
         [Category(Constants.CategoryName)]
-        public object Value
+        public string Value
         {
-            get { return (object)GetValue(ValueProperty); }
+            get { return (string)GetValue(ValueProperty); }
             set { SetValue(ValueProperty, value); }
         }
 

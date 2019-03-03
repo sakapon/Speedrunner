@@ -21,7 +21,7 @@ namespace Speedrunner.Activities
             var varN = context.Variables.Get<int>(VariableName);
             if (varN == null)
             {
-                varN = new Variable<int> { Name = VariableName };
+                varN = new Variable<int> { VariableName = VariableName };
                 context.Variables.Add(varN);
             }
 

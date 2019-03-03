@@ -12,6 +12,6 @@ namespace Speedrunner.Activities
     public sealed class VariableCollection : Collection<Variable>
     {
         public Variable<T> Get<T>(string name) =>
-            (Variable<T>)this.FirstOrDefault(v => v.Name == name);
+            (Variable<T>)this.FirstOrDefault(v => v.VariableName == name);
     }
 }

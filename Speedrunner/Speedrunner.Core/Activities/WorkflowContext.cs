@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Markup;
 
@@ -21,16 +22,43 @@ namespace Speedrunner.Activities
         public VariableCollection Variables { get; } = new VariableCollection();
     }
 
-    public abstract class Variable
+    [DebuggerDisplay(@"\{{Type.Name} {VariableName} = {Value}\}")]
+    public class Variable
     {
+        public Type Type { get; set; }
         [DefaultValue("")]
-        public string Name { get; set; } = "";
+        public string VariableName { get; set; } = "";
+        public string Value { get; set; }
+
+        public object ActualValue
+        {
+            get
+            {
+                var c = TypeDescriptor.GetConverter(Type);
+                return c.ConvertFrom(Value);
+            }
+        }
+
+        public Variable ToTyped()
+        {
+            var toTyped = typeof(Variable).GetMethod(nameof(ToTyped), BindingFlags.NonPublic | BindingFlags.Instance)
+                .MakeGenericMethod(Type);
+            return (Variable)toTyped.Invoke(this, null);
+        }
+
+        Variable ToTyped<T>() =>
+            new Variable<T>
+            {
+                VariableName = VariableName,
+                Value = (T)ActualValue,
+            };
     }
 
-    [DebuggerDisplay(@"\{{Name}: {Value}\}")]
+    [DebuggerDisplay(@"\{{Type.Name} {VariableName} = {Value}\}")]
     public class Variable<T> : Variable
     {
-        public T Value { get; set; }
-        public Type Type => typeof(T);
+        public new Type Type => typeof(T);
+        public new T Value { get; set; }
+        public new T ActualValue => Value;
     }
 }

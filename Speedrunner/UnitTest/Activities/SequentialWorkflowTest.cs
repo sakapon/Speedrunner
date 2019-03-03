@@ -16,8 +16,8 @@ namespace UnitTest.Activities
         public void GetPi()
         {
             var context = new WorkflowContext();
-            context.Variables.Add(new Variable<double> { Name = "sum", Value = 1.0 });
-            context.Variables.Add(new Variable<double> { Name = "p", Value = 1.0 });
+            context.Variables.Add(new Variable<double> { VariableName = "sum", Value = 1.0 });
+            context.Variables.Add(new Variable<double> { VariableName = "p", Value = 1.0 });
 
             var wf = new SequentialWorkflow();
             var forRange = new ForRange { Start = 3, Count = 50, Step = 2 };

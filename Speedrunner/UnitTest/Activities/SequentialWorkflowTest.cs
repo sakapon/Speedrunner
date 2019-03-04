@@ -28,7 +28,7 @@ namespace UnitTest.Activities
 
             wf.Execute(context);
 
-            AssertNearlyEqual(Math.PI, context.Variables.Get<double>("sum").Value);
+            AssertNearlyEqual(Math.PI, context.Variables.Get<double>("pi"));
         }
 
         public static void NextP(WorkflowContext context)
@@ -48,7 +48,8 @@ namespace UnitTest.Activities
         public static void Sqrt12(WorkflowContext context)
         {
             var sum = context.Variables.Get<double>("sum");
-            sum.Value *= Math.Sqrt(12);
+            var pi = context.Variables.Get<double>("pi");
+            pi.Value = Math.Sqrt(12) * sum;
         }
     }
 }

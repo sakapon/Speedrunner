@@ -13,6 +13,14 @@ namespace Speedrunner.UI
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(WorkflowVariables), new FrameworkPropertyMetadata(typeof(WorkflowVariables)));
         }
+
+        public static WorkflowVariables CurrentInDesign { get; private set; }
+
+        public WorkflowVariables()
+        {
+            if (DesignerProperties.GetIsInDesignMode(this))
+                CurrentInDesign = this;
+        }
     }
 
     public class WorkflowResult : ItemsControl

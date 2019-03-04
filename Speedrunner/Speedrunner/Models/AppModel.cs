@@ -12,12 +12,29 @@ namespace Speedrunner.Models
     {
         public ReactiveProperty<VariableCollection> Variables { get; } = new ReactiveProperty<VariableCollection>();
 
+        public AppModel()
+        {
+            ExecuteWorkflowInDesign();
+        }
+
+        async void ExecuteWorkflowInDesign()
+        {
+            await Task.Delay(1000);
+            if (UI.SequentialWorkflow.CurrentInDesign == null) return;
+            ExecuteWorkflow(UI.SequentialWorkflow.CurrentInDesign, UI.WorkflowVariables.CurrentInDesign);
+        }
+
         public void ExecuteWorkflow(DependencyObject obj)
+        {
+            ExecuteWorkflow(ActivityHelper.FindSequentialWorkflow(obj), ActivityHelper.FindWorkflowVariables(obj));
+        }
+
+        public void ExecuteWorkflow(UI.SequentialWorkflow workflowUI, UI.WorkflowVariables variablesUI)
         {
             Variables.Value = null;
 
-            var workflow = (SequentialWorkflow)ActivityHelper.FindSequentialWorkflow(obj).ToModel();
-            var variables = (WorkflowVariables)ActivityHelper.FindWorkflowVariables(obj).ToModel();
+            var workflow = (SequentialWorkflow)workflowUI.ToModel();
+            var variables = (WorkflowVariables)variablesUI.ToModel();
             var context = new WorkflowContext { Variables = variables.Variables.ToTyped() };
 
             Task.Run(() =>

@@ -23,5 +23,13 @@ namespace Speedrunner.UI
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(SequentialWorkflow), new FrameworkPropertyMetadata(typeof(SequentialWorkflow)));
         }
+
+        public static SequentialWorkflow CurrentInDesign { get; private set; }
+
+        public SequentialWorkflow()
+        {
+            if (DesignerProperties.GetIsInDesignMode(this))
+                CurrentInDesign = this;
+        }
     }
 }

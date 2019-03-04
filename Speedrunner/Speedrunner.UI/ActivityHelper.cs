@@ -73,5 +73,12 @@ namespace Speedrunner
                 }
             }
         }
+
+        public static IEnumerable<DependencyObject> GetLogicalAncestors(DependencyObject obj)
+        {
+            var current = obj;
+            while ((current = LogicalTreeHelper.GetParent(current)) != null)
+                yield return current;
+        }
     }
 }

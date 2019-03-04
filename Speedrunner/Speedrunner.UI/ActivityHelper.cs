@@ -30,7 +30,7 @@ namespace Speedrunner
                 .Where(p => p.GetCustomAttribute<CategoryAttribute>()?.Category == UI.Constants.CategoryName)
                 .ToDictionary(p => p.Name, p => p.GetValue(control));
             foreach (var p in properties)
-                type.GetProperty(p.Key).SetValue(model, p.Value);
+                type.GetProperty(p.Key)?.SetValue(model, p.Value);
 
             // Adds children.
             if ((control is ItemsControl ic) && !ic.Items.IsEmpty)

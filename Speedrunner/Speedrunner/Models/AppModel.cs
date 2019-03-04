@@ -20,7 +20,7 @@ namespace Speedrunner.Models
         async void ExecuteWorkflowInDesign()
         {
             await Task.Delay(1000);
-            if (UI.SequentialWorkflow.CurrentInDesign == null) return;
+            if (UI.SequentialWorkflow.CurrentInDesign?.IsActiveInDesign != true) return;
             ExecuteWorkflow(UI.SequentialWorkflow.CurrentInDesign, UI.WorkflowVariables.CurrentInDesign);
         }
 

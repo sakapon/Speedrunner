@@ -19,6 +19,16 @@ namespace Speedrunner.UI
             set { SetValue(TitleProperty, value); }
         }
 
+        public static readonly DependencyProperty IsActiveInDesignProperty =
+            DependencyProperty.Register("IsActiveInDesign", typeof(bool), typeof(SequentialWorkflow), new PropertyMetadata(false));
+
+        [Category(Constants.CategoryName)]
+        public bool IsActiveInDesign
+        {
+            get { return (bool)GetValue(IsActiveInDesignProperty); }
+            set { SetValue(IsActiveInDesignProperty, value); }
+        }
+
         static SequentialWorkflow()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(SequentialWorkflow), new FrameworkPropertyMetadata(typeof(SequentialWorkflow)));

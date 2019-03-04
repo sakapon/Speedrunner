@@ -25,16 +25,6 @@ namespace Speedrunner.UI
 
     public class WorkflowResult : ItemsControl
     {
-        public static readonly DependencyProperty IsActiveInDesignProperty =
-            DependencyProperty.Register("IsActiveInDesign", typeof(bool), typeof(WorkflowResult), new PropertyMetadata(false));
-
-        [Category(Constants.CategoryName)]
-        public bool IsActiveInDesign
-        {
-            get { return (bool)GetValue(IsActiveInDesignProperty); }
-            set { SetValue(IsActiveInDesignProperty, value); }
-        }
-
         static WorkflowResult()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(WorkflowResult), new FrameworkPropertyMetadata(typeof(WorkflowResult)));

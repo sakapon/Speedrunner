@@ -38,6 +38,15 @@ namespace Speedrunner.Activities
             Dictionary[item.VariableName] = item;
         }
 
+        public bool Contains(string name) => Dictionary.ContainsKey(name);
+
+        public Variable Get(string name)
+        {
+            if (!Dictionary.ContainsKey(name))
+                Add(new Variable { VariableName = name });
+            return Dictionary[name];
+        }
+
         public Variable<T> Get<T>(string name)
         {
             if (!Dictionary.ContainsKey(name))

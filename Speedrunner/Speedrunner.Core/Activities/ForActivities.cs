@@ -18,15 +18,15 @@ namespace Speedrunner.Activities
 
         public override void Execute(WorkflowContext context)
         {
-            var varN = context.Variables.Get<int>(VariableName);
+            var varCounter = context.Variables.Get<int>(VariableName);
+            var counter = Start;
 
-            var n = Start;
             for (var i = 0; i < Count; i++)
             {
-                varN.Value = n;
+                varCounter.Value = counter;
                 base.Execute(context);
                 if (context.IsReturned) return;
-                n += Step;
+                counter += Step;
             }
         }
     }

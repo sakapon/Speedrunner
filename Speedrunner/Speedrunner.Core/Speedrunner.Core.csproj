@@ -17,6 +17,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Reference Include="KLibrary.Labs.UI.Input">
+      <HintPath>..\Lib\KLibrary.Labs.UI.Input.dll</HintPath>
+    </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="WindowsBase" />

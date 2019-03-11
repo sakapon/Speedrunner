@@ -13,7 +13,26 @@ namespace UnitTest.Activities
             Assert.AreEqual(0.0, Math.Round(expected - actual, 12));
 
         [TestMethod]
-        public void GetPi()
+        public void GetPi_Expression()
+        {
+            var context = new WorkflowContext();
+            context.Variables.Add(new Variable<double> { VariableName = "sum", Value = 1.0 });
+            context.Variables.Add(new Variable<double> { VariableName = "p", Value = 1.0 });
+
+            var wf = new SequentialWorkflow();
+            var forRange = new ForRange { Start = 3, Count = 50, Step = 2 };
+            forRange.Activities.Add(new Expression { Text = "p *= -3" });
+            forRange.Activities.Add(new Expression { Text = "sum += 1 / (i * p)" });
+            wf.Activities.Add(forRange);
+            wf.Activities.Add(new Expression { Text = "pi = System.Math.Sqrt(12) * sum" });
+
+            wf.Execute(context);
+
+            AssertNearlyEqual(Math.PI, context.Variables.Get<double>("pi"));
+        }
+
+        [TestMethod]
+        public void GetPi_Methods()
         {
             var context = new WorkflowContext();
             context.Variables.Add(new Variable<double> { VariableName = "sum", Value = 1.0 });

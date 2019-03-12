@@ -44,6 +44,18 @@
         </Setter>
     </Style>
 
+    <Style TargetType="{x:Type local:Expression}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:Expression}">
+                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                        <TextBlock Text="{Binding Text, RelativeSource={RelativeSource TemplatedParent}, StringFormat=Expression: \{0\}}"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style TargetType="{x:Type local:ForRange}">
         <Setter Property="Template">
             <Setter.Value>

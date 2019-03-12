@@ -31,10 +31,10 @@
             <sr:Delay Timeout="300"/>
             <sr:ForRange Start="3" Count="50" Step="2">
                 <TextBlock Text="TextBlock"/>
-                <sr:Code Type="{x:Type local:MainWindow}" MethodName="NextP"/>
-                <sr:Code Type="{x:Type local:MainWindow}" MethodName="AddTerm"/>
+                <sr:Expression Text="p *= -3"/>
+                <sr:Expression Text="sum += 1 / (i * p)"/>
             </sr:ForRange>
-            <sr:Code Type="{x:Type local:MainWindow}" MethodName="Sqrt12"/>
+            <sr:Expression Text="pi = System.Math.Sqrt(12) * sum"/>
         </sr:SequentialWorkflow>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>

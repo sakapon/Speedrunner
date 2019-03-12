@@ -14,6 +14,8 @@ namespace Speedrunner.Activities
     {
         public Dictionary<string, VariableBase> Dictionary { get; } = new Dictionary<string, VariableBase>();
 
+        public VariableBase this[string name] => Dictionary[name];
+
         protected override void ClearItems()
         {
             base.ClearItems();

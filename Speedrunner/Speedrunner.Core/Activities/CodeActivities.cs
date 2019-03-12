@@ -43,7 +43,10 @@ namespace Speedrunner.Activities
             var script_vars = string.Join(", ", variables.Select(v => $"{(v.VariableName == leftVarName ? "ref " : "")}{v.Type.FullName} {v.VariableName}"));
             if (!variables.Contains(leftVarName)) script_vars += $", ref object {leftVarName}";
 
-            var source = $@"
+            var source = $@"using System;
+using System.Collections.Generic;
+using System.Linq;
+
 public static class Program
 {{
 public static void Execute({script_vars})

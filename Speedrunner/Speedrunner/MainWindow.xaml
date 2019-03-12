@@ -34,7 +34,7 @@
                 <sr:Expression Text="p *= -3"/>
                 <sr:Expression Text="sum += 1 / (i * p)"/>
             </sr:ForRange>
-            <sr:Expression Text="pi = System.Math.Sqrt(12) * sum"/>
+            <sr:Expression Text="pi = Math.Sqrt(12) * sum"/>
         </sr:SequentialWorkflow>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>

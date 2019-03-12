@@ -24,7 +24,7 @@ namespace UnitTest.Activities
             forRange.Activities.Add(new Expression { Text = "p *= -3" });
             forRange.Activities.Add(new Expression { Text = "sum += 1 / (i * p)" });
             wf.Activities.Add(forRange);
-            wf.Activities.Add(new Expression { Text = "pi = System.Math.Sqrt(12) * sum" });
+            wf.Activities.Add(new Expression { Text = "pi = Math.Sqrt(12) * sum" });
 
             wf.Execute(context);
 

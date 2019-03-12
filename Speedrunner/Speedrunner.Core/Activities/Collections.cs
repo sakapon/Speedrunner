@@ -10,9 +10,9 @@ namespace Speedrunner.Activities
     {
     }
 
-    public sealed class VariableCollection : Collection<Variable>
+    public sealed class VariableCollection : Collection<VariableBase>
     {
-        public Dictionary<string, Variable> Dictionary { get; } = new Dictionary<string, Variable>();
+        public Dictionary<string, VariableBase> Dictionary { get; } = new Dictionary<string, VariableBase>();
 
         protected override void ClearItems()
         {
@@ -20,7 +20,7 @@ namespace Speedrunner.Activities
             Dictionary.Clear();
         }
 
-        protected override void InsertItem(int index, Variable item)
+        protected override void InsertItem(int index, VariableBase item)
         {
             base.InsertItem(index, item);
             Dictionary[item.VariableName] = item;
@@ -32,7 +32,7 @@ namespace Speedrunner.Activities
             base.RemoveItem(index);
         }
 
-        protected override void SetItem(int index, Variable item)
+        protected override void SetItem(int index, VariableBase item)
         {
             base.SetItem(index, item);
             Dictionary[item.VariableName] = item;
@@ -40,10 +40,10 @@ namespace Speedrunner.Activities
 
         public bool Contains(string name) => Dictionary.ContainsKey(name);
 
-        public Variable Get(string name)
+        public VariableBase Get(string name, Type type)
         {
             if (!Dictionary.ContainsKey(name))
-                Add(new Variable { VariableName = name });
+                Add(VariableBase.CreateTyped(name, type));
             return Dictionary[name];
         }
 
@@ -54,10 +54,10 @@ namespace Speedrunner.Activities
             return (Variable<T>)Dictionary[name];
         }
 
-        public VariableCollection ToTyped()
+        public static VariableCollection ToTyped(Collection<Variable> variables)
         {
             var c = new VariableCollection();
-            foreach (var item in this)
+            foreach (var item in variables)
                 c.Add(item.ToTyped());
             return c;
         }

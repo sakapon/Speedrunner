@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Reflection;
@@ -19,7 +20,31 @@ namespace Speedrunner.Activities
     [ContentProperty("Variables")]
     public class WorkflowVariables
     {
-        public VariableCollection Variables { get; } = new VariableCollection();
+        public Collection<Variable> Variables { get; } = new Collection<Variable>();
+    }
+
+    [DebuggerDisplay(@"\{{Type.Name} {VariableName} = {ActualValue}\}")]
+    public abstract class VariableBase
+    {
+        public abstract Type Type { get; set; }
+        [DefaultValue("")]
+        public string VariableName { get; set; } = "";
+        public abstract object ActualValue { get; set; }
+
+        public static VariableBase CreateTyped(string name, Type type)
+        {
+            var varType = typeof(Variable<>).MakeGenericType(type);
+            var v = (VariableBase)Activator.CreateInstance(varType);
+            v.VariableName = name;
+            return v;
+        }
+
+        public static VariableBase CreateTyped(string name, Type type, object value)
+        {
+            var v = CreateTyped(name, type);
+            v.ActualValue = value;
+            return v;
+        }
     }
 
     [DebuggerDisplay(@"\{{Type.Name} {VariableName} = {Value}\}")]
@@ -39,27 +64,36 @@ namespace Speedrunner.Activities
             }
         }
 
-        public Variable ToTyped()
+        public VariableBase ToTyped()
         {
             var toTyped = typeof(Variable).GetMethod(nameof(ToTyped), BindingFlags.NonPublic | BindingFlags.Instance)
                 .MakeGenericMethod(Type);
-            return (Variable)toTyped.Invoke(this, null);
+            return (VariableBase)toTyped.Invoke(this, null);
         }
 
-        Variable ToTyped<T>() =>
+        Variable<T> ToTyped<T>() =>
             new Variable<T>
             {
                 VariableName = VariableName,
-                Value = (T)ActualValue,
+                ActualValue = ActualValue,
             };
     }
 
-    [DebuggerDisplay(@"\{{Type.Name} {VariableName} = {Value}\}")]
-    public class Variable<T> : Variable
+    public class Variable<T> : VariableBase
     {
-        public new Type Type => typeof(T);
-        public new T Value { get; set; }
-        public new T ActualValue => Value;
+        public override Type Type
+        {
+            get => typeof(T);
+            set => throw new NotSupportedException();
+        }
+
+        public T Value { get; set; }
+
+        public override object ActualValue
+        {
+            get => Value;
+            set => Value = (T)value;
+        }
 
         public static implicit operator T(Variable<T> v) => v.Value;
     }

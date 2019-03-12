@@ -35,7 +35,7 @@ namespace Speedrunner.Models
 
             var workflow = (SequentialWorkflow)workflowUI.ToModel();
             var variables = (WorkflowVariables)variablesUI.ToModel();
-            var context = new WorkflowContext { Variables = variables.Variables.ToTyped() };
+            var context = new WorkflowContext { Variables = VariableCollection.ToTyped(variables.Variables) };
 
             Task.Run(() =>
             {

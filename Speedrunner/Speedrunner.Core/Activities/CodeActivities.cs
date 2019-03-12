@@ -25,22 +25,13 @@ namespace Speedrunner.Activities
             if (action == null) action = CreateAction(variables);
 
             var parameters = action.GetParameters();
-            var refIndex = Array.FindIndex(parameters, p => p.ParameterType.IsByRef);
-            var refVarName = parameters[refIndex].Name;
-
-            var args = variables.Contains(refVarName) ?
-                parameters
-                    .Select(p => variables[p.Name].ActualValue)
-                    .ToArray() :
-                parameters
-                    .Where(p => !p.ParameterType.IsByRef)
-                    .Select(p => variables[p.Name].ActualValue)
-                    .Concat(new object[] { null })
-                    .ToArray();
-
+            var args = parameters
+                .Select(p => variables.Contains(p.Name) ? variables[p.Name].ActualValue : null)
+                .ToArray();
             action.Invoke(null, args);
-            var refVar = context.Variables.Get(refVarName, args[refIndex].GetType());
-            refVar.ActualValue = args[refIndex];
+
+            var refIndex = Array.FindIndex(parameters, p => p.ParameterType.IsByRef);
+            variables.Set(parameters[refIndex].Name, args[refIndex]);
         }
 
         MethodInfo CreateAction(VariableCollection variables)

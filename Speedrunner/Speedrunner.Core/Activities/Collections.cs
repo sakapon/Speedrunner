@@ -56,6 +56,19 @@ namespace Speedrunner.Activities
             return (Variable<T>)Dictionary[name];
         }
 
+        public void Set(string name, object value)
+        {
+            if (Dictionary.ContainsKey(name))
+            {
+                var v = Dictionary[name];
+                v.ActualValue = value;
+            }
+            else
+            {
+                Add(VariableBase.CreateTyped(name, value?.GetType() ?? typeof(object), value));
+            }
+        }
+
         public static VariableCollection ToTyped(Collection<Variable> variables)
         {
             var c = new VariableCollection();

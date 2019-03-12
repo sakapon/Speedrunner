@@ -63,7 +63,7 @@ namespace Speedrunner.Activities
     }
 
     [DebuggerDisplay(@"\{{GetType().Name}: {Type.Name}.{MethodName}\}")]
-    public class Code : Activity
+    public class InvokeMethod : Activity
     {
         public Type Type { get; set; }
         [DefaultValue("")]

@@ -27,13 +27,13 @@
         </Setter>
     </Style>
 
-    <Style TargetType="{x:Type local:Code}">
+    <Style TargetType="{x:Type local:InvokeMethod}">
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type local:Code}">
+                <ControlTemplate TargetType="{x:Type local:InvokeMethod}">
                     <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
                         <TextBlock>
-                            <Run Text="Code: "/>
+                            <Run Text="InvokeMethod: "/>
                             <Run Text="{Binding Type.Name, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"/>
                             <Run Text="."/>
                             <Run Text="{TemplateBinding MethodName}"/>

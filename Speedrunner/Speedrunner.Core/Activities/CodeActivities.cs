@@ -9,6 +9,41 @@ using System.Text.RegularExpressions;
 
 namespace Speedrunner.Activities
 {
+    [DebuggerDisplay(@"\{{GetType().Name}: {Type.Name}.{MethodName}\}")]
+    public class InvokeMethod : Activity
+    {
+        public Type Type { get; set; }
+        [DefaultValue("")]
+        public string MethodName { get; set; } = "";
+
+        public override void Execute(WorkflowContext context)
+        {
+            if (Type == null) throw new InvalidOperationException();
+            if (string.IsNullOrWhiteSpace(MethodName)) throw new InvalidOperationException();
+
+            var methods = Type.GetMethods(BindingFlags.Public | BindingFlags.Static | BindingFlags.InvokeMethod)
+                .Where(m => m.Name == MethodName)
+                .ToArray();
+
+            if (methods.Length != 1) throw new InvalidOperationException();
+            var method = methods[0];
+            var parameters = method.GetParameters();
+
+            if (parameters.Length == 0)
+            {
+                method.Invoke(null, null);
+            }
+            else if (parameters.Length == 1 && parameters[0].ParameterType == typeof(WorkflowContext))
+            {
+                method.Invoke(null, new[] { context });
+            }
+            else
+            {
+                throw new InvalidOperationException();
+            }
+        }
+    }
+
     [DebuggerDisplay(@"\{{GetType().Name}: {Text}\}")]
     public class Expression : Activity
     {

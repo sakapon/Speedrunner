@@ -15,18 +15,6 @@
         </Setter>
     </Style>
 
-    <Style TargetType="{x:Type local:Delay}">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type local:Delay}">
-                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
-                        <TextBlock Text="{Binding Timeout, RelativeSource={RelativeSource TemplatedParent}, StringFormat=Delay: \{0\} ms}"/>
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
     <Style TargetType="{x:Type local:InvokeMethod}">
         <Setter Property="Template">
             <Setter.Value>
@@ -74,6 +62,18 @@
                             </TextBlock>
                             <ItemsPresenter Margin="{TemplateBinding ItemsMargin}"/>
                         </StackPanel>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type local:Delay}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:Delay}">
+                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                        <TextBlock Text="{Binding Timeout, RelativeSource={RelativeSource TemplatedParent}, StringFormat=Delay: \{0\} ms}"/>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>

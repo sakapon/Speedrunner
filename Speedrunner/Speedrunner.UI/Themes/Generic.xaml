@@ -80,6 +80,23 @@
         </Setter>
     </Style>
 
+    <Style TargetType="{x:Type local:Click}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:Click}">
+                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                        <TextBlock>
+                            <Run Text="Click:"/>
+                            <Run Text="{Binding Timeout, RelativeSource={RelativeSource TemplatedParent}}"/>
+                            <Run Text="ms,"/>
+                            <Run Text="{Binding Position, RelativeSource={RelativeSource TemplatedParent}}"/>
+                        </TextBlock>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style TargetType="{x:Type local:SequentialWorkflow}">
         <Setter Property="Template">
             <Setter.Value>

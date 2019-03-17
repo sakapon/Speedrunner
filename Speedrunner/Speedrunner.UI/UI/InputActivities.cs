@@ -25,6 +25,24 @@ namespace Speedrunner.UI
         }
     }
 
+    public class MouseMove : Delay
+    {
+        public static readonly DependencyProperty PositionProperty =
+            DependencyProperty.Register("Position", typeof(Point), typeof(MouseMove), new PropertyMetadata(new Point()));
+
+        [Category(Constants.CategoryName)]
+        public Point Position
+        {
+            get { return (Point)GetValue(PositionProperty); }
+            set { SetValue(PositionProperty, value); }
+        }
+
+        static MouseMove()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(MouseMove), new FrameworkPropertyMetadata(typeof(MouseMove)));
+        }
+    }
+
     public class Click : Delay
     {
         public static readonly DependencyProperty PositionProperty =
@@ -32,6 +50,9 @@ namespace Speedrunner.UI
 
         public static readonly DependencyProperty UsesCurrentPointProperty =
             DependencyProperty.Register("UsesCurrentPoint", typeof(bool), typeof(Click), new PropertyMetadata(false));
+
+        public static readonly DependencyProperty IsRightClickProperty =
+            DependencyProperty.Register("IsRightClick", typeof(bool), typeof(Click), new PropertyMetadata(false));
 
         [Category(Constants.CategoryName)]
         public Point Position
@@ -45,6 +66,13 @@ namespace Speedrunner.UI
         {
             get { return (bool)GetValue(UsesCurrentPointProperty); }
             set { SetValue(UsesCurrentPointProperty, value); }
+        }
+
+        [Category(Constants.CategoryName)]
+        public bool IsRightClick
+        {
+            get { return (bool)GetValue(IsRightClickProperty); }
+            set { SetValue(IsRightClickProperty, value); }
         }
 
         static Click()

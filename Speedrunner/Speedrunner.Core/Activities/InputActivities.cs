@@ -30,6 +30,17 @@ namespace Speedrunner.Activities
         }
     }
 
+    public class MouseMove : Delay
+    {
+        [DefaultValue("0,0")]
+        public Point Position { get; set; }
+
+        protected override void ExecuteAfterDelay()
+        {
+            MouseInjection.Move(Position);
+        }
+    }
+
     public class Click : Delay
     {
         [DefaultValue("0,0")]
@@ -38,12 +49,17 @@ namespace Speedrunner.Activities
         [DefaultValue(false)]
         public bool UsesCurrentPoint { get; set; }
 
+        [DefaultValue(false)]
+        public bool IsRightClick { get; set; }
+
         protected override void ExecuteAfterDelay()
         {
+            var button = IsRightClick ? MouseButtonType.Right : MouseButtonType.Left;
+
             if (UsesCurrentPoint)
-                MouseInjection.Click();
+                MouseInjection.Click(button);
             else
-                MouseInjection.Click(Position);
+                MouseInjection.Click(Position, button);
         }
     }
 }

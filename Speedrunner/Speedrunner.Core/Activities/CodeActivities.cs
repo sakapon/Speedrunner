@@ -47,7 +47,7 @@ namespace Speedrunner.Activities
     [DebuggerDisplay(@"\{{GetType().Name}: {Text}\}")]
     public class Expression : Activity
     {
-        static readonly Regex ExpressionPattern = new Regex(@"^\s*(.+?)\s*\S?=.+$");
+        static readonly Regex ExpressionPattern = new Regex(@"^\s*(.+?)\s*[-+*/%&|^<>=!]*=.+$");
 
         [DefaultValue("")]
         public string Text { get; set; } = "";

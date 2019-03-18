@@ -17,7 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xaml;
-using TasSample.Models;
+using Speedrunner.Activities;
 using Win32InputLib;
 using Keys = System.Windows.Forms.Keys;
 
@@ -54,7 +54,7 @@ namespace InputRecorder
 
             Task.Run(() =>
             {
-                workflow.Start();
+                workflow.Execute(new WorkflowContext());
 
                 Dispatcher.InvokeAsync(() => ReplayButton.IsEnabled = true);
             });
@@ -89,7 +89,7 @@ namespace InputRecorder
         const string OutputDirName = "Workflows";
 
         // TODO: 現在の実装ではマウスとキーボードが独立しています。
-        SequentialScreenWorkflow workflow = new SequentialScreenWorkflow { Name = "By Input Recorder" };
+        SequentialWorkflow workflow = new SequentialWorkflow { Title = "By Input Recorder" };
         ObservableCollection<string> actions = new ObservableCollection<string>();
         MouseHook.StateMouse mouseAction;
         KeyboardHook.StateKeyboard keyAction;
@@ -127,7 +127,7 @@ namespace InputRecorder
                             actions.Add($"{s.Stroke}: {s.X}, {s.Y}");
                             break;
                         case MouseHook.Stroke.LEFT_DOWN:
-                            workflow.Activities.Add(new ClickActivity { Timeout = 500, Point = new Point(s.X, s.Y) });
+                            workflow.Activities.Add(new Click { Timeout = 500, Position = new Point(s.X, s.Y) });
                             actions.Add($"Left_Click: {s.X}, {s.Y}");
                             break;
                         case MouseHook.Stroke.RIGHT_DOWN:
@@ -184,7 +184,7 @@ namespace InputRecorder
                 case KeyboardHook.Stroke.SYSKEY_DOWN:
                     if (Keys.D0 <= s.Key && s.Key <= Keys.Z)
                     {
-                        workflow.Activities.Add(new SendKeysActivity { Timeout = 500, Keys = ToLetter(s.Key) });
+                        workflow.Activities.Add(new KeyStroke { Timeout = 500, Key = s.Key });
                         actions.Add($"Type: {s.Key}");
                     }
                     else

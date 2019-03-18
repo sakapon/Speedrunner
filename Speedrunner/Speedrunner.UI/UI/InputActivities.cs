@@ -4,13 +4,14 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using FormsKeys = System.Windows.Forms.Keys;
 
 namespace Speedrunner.UI
 {
     public class Delay : Control
     {
         public static readonly DependencyProperty TimeoutProperty =
-            DependencyProperty.Register("Timeout", typeof(int), typeof(Delay), new PropertyMetadata(0));
+            DependencyProperty.Register("Timeout", typeof(int), typeof(Delay), new PropertyMetadata(100));
 
         [Category(Constants.CategoryName)]
         public int Timeout
@@ -78,6 +79,42 @@ namespace Speedrunner.UI
         static Click()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(Click), new FrameworkPropertyMetadata(typeof(Click)));
+        }
+    }
+
+    public class KeyStroke : Delay
+    {
+        public static readonly DependencyProperty KeyProperty =
+            DependencyProperty.Register("Key", typeof(FormsKeys), typeof(KeyStroke), new PropertyMetadata(FormsKeys.None));
+
+        [Category(Constants.CategoryName)]
+        public FormsKeys Key
+        {
+            get { return (FormsKeys)GetValue(KeyProperty); }
+            set { SetValue(KeyProperty, value); }
+        }
+
+        static KeyStroke()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(KeyStroke), new FrameworkPropertyMetadata(typeof(KeyStroke)));
+        }
+    }
+
+    public class InputText : Delay
+    {
+        public static readonly DependencyProperty TextProperty =
+            DependencyProperty.Register("Text", typeof(string), typeof(InputText), new PropertyMetadata(""));
+
+        [Category(Constants.CategoryName)]
+        public string Text
+        {
+            get { return (string)GetValue(TextProperty); }
+            set { SetValue(TextProperty, value); }
+        }
+
+        static InputText()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(InputText), new FrameworkPropertyMetadata(typeof(InputText)));
         }
     }
 }

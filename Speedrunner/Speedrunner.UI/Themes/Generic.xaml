@@ -114,6 +114,40 @@
         </Setter>
     </Style>
 
+    <Style TargetType="{x:Type local:KeyStroke}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:KeyStroke}">
+                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                        <TextBlock>
+                            <Run Text="KeyStroke:"/>
+                            <Run Text="{Binding Timeout, RelativeSource={RelativeSource TemplatedParent}}"/>
+                            <Run Text="ms,"/>
+                            <Run Text="{Binding Key, RelativeSource={RelativeSource TemplatedParent}}"/>
+                        </TextBlock>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type local:InputText}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:InputText}">
+                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                        <TextBlock>
+                            <Run Text="InputText:"/>
+                            <Run Text="{Binding Timeout, RelativeSource={RelativeSource TemplatedParent}}"/>
+                            <Run Text="ms,"/>
+                            <Run Text="{TemplateBinding Text}"/>
+                        </TextBlock>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style TargetType="{x:Type local:SequentialWorkflow}">
         <Setter Property="Template">
             <Setter.Value>

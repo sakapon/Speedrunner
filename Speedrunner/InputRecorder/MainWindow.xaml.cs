@@ -65,7 +65,7 @@ namespace InputRecorder
             RecordButton.Content = "Recording...";
             workflow.Activities.Clear();
             actions.Clear();
-            MouseHook.AddEvent(MouseNotified);
+            MouseHook.AddEvent(input.NotifyMouse);
             KeyboardHook.AddEvent(KeyboardNotified);
             MouseHook.Start();
             KeyboardHook.Start();
@@ -77,9 +77,9 @@ namespace InputRecorder
             MouseHook.Stop();
             KeyboardHook.Stop();
 
-            // TODO: 直前のアクションを削除します。
+            workflow = input.GetWorkflow();
 
-            if (actions.Any())
+            if (workflow.Activities.Any())
             {
                 XamlServices.Save($@"{OutputDirName}\{DateTime.Now:yyyyMMdd-HHmmss}.xaml", workflow);
                 File.WriteAllLines($@"{OutputDirName}\{DateTime.Now:yyyyMMdd-HHmmss}.txt", actions, Encoding.UTF8);
@@ -89,92 +89,10 @@ namespace InputRecorder
         const string OutputDirName = "Workflows";
 
         // TODO: 現在の実装ではマウスとキーボードが独立しています。
+        InputManager input = new InputManager();
         SequentialWorkflow workflow = new SequentialWorkflow { Title = "By Input Recorder" };
         ObservableCollection<string> actions = new ObservableCollection<string>();
-        MouseHook.StateMouse mouseAction;
         KeyboardHook.StateKeyboard keyAction;
-
-        void MouseNotified(ref MouseHook.StateMouse s)
-        {
-            switch (s.Stroke)
-            {
-                case MouseHook.Stroke.MOVE:
-                    switch (mouseAction.Stroke)
-                    {
-                        case MouseHook.Stroke.LEFT_DOWN:
-                        case MouseHook.Stroke.RIGHT_DOWN:
-                            actions.Add($"{mouseAction.Stroke}: {mouseAction.X}, {mouseAction.Y}");
-                            break;
-                        default:
-                            break;
-                    }
-                    break;
-                case MouseHook.Stroke.LEFT_DOWN:
-                    switch (mouseAction.Stroke)
-                    {
-                        case MouseHook.Stroke.RIGHT_DOWN:
-                            actions.Add($"{mouseAction.Stroke}: {mouseAction.X}, {mouseAction.Y}");
-                            break;
-                        default:
-                            break;
-                    }
-                    break;
-                case MouseHook.Stroke.LEFT_UP:
-                    switch (mouseAction.Stroke)
-                    {
-                        case MouseHook.Stroke.MOVE:
-                        case MouseHook.Stroke.RIGHT_UP:
-                            actions.Add($"{s.Stroke}: {s.X}, {s.Y}");
-                            break;
-                        case MouseHook.Stroke.LEFT_DOWN:
-                            workflow.Activities.Add(new Click { Timeout = 500, Position = new Point(s.X, s.Y) });
-                            actions.Add($"Left_Click: {s.X}, {s.Y}");
-                            break;
-                        case MouseHook.Stroke.RIGHT_DOWN:
-                            actions.Add($"{mouseAction.Stroke}: {mouseAction.X}, {mouseAction.Y}");
-                            actions.Add($"{s.Stroke}: {s.X}, {s.Y}");
-                            break;
-                        default:
-                            break;
-                    }
-                    break;
-                case MouseHook.Stroke.RIGHT_DOWN:
-                    switch (mouseAction.Stroke)
-                    {
-                        case MouseHook.Stroke.LEFT_DOWN:
-                            actions.Add($"{mouseAction.Stroke}: {mouseAction.X}, {mouseAction.Y}");
-                            break;
-                        default:
-                            break;
-                    }
-                    break;
-                case MouseHook.Stroke.RIGHT_UP:
-                    switch (mouseAction.Stroke)
-                    {
-                        case MouseHook.Stroke.MOVE:
-                        case MouseHook.Stroke.LEFT_UP:
-                            actions.Add($"{s.Stroke}: {s.X}, {s.Y}");
-                            break;
-                        case MouseHook.Stroke.RIGHT_DOWN:
-                            actions.Add($"Right_Click: {s.X}, {s.Y}");
-                            break;
-                        case MouseHook.Stroke.LEFT_DOWN:
-                            actions.Add($"{mouseAction.Stroke}: {mouseAction.X}, {mouseAction.Y}");
-                            actions.Add($"{s.Stroke}: {s.X}, {s.Y}");
-                            break;
-                        default:
-                            break;
-                    }
-                    break;
-                default:
-                    break;
-            }
-
-            if (MouseHook.Stroke.MOVE <= s.Stroke && s.Stroke <= MouseHook.Stroke.RIGHT_UP)
-            {
-                mouseAction = s;
-            }
-        }
 
         void KeyboardNotified(ref KeyboardHook.StateKeyboard s)
         {

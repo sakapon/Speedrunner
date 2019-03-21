@@ -20,7 +20,7 @@ namespace InputRecorder
             mouseRight.Click += o => activities.Add((new Click { Position = o.p, IsRightClick = true }, o.t));
         }
 
-        public void NotifyMouse(MouseHook.StateMouse s)
+        public void NotifyMouse(ref MouseHook.StateMouse s)
         {
             switch (s.Stroke)
             {
@@ -51,7 +51,7 @@ namespace InputRecorder
             for (var i = activities.Count - 1; i >= 0 && now - activities[i].t < InvocationSpan; i--)
                 activities.RemoveAt(i);
 
-            var workflow = new SequentialWorkflow();
+            var workflow = new SequentialWorkflow { Title = "By Input Recorder" };
             foreach (var item in activities.Select(_ => _.a))
                 workflow.Activities.Add(item);
 

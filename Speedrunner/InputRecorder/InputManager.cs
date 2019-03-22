@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows;
 using Speedrunner.Activities;
 using Win32InputLib;
+using Keys = System.Windows.Forms.Keys;
 
 namespace InputRecorder
 {
@@ -13,11 +14,13 @@ namespace InputRecorder
 
         MouseButton mouseLeft = new MouseButton();
         MouseButton mouseRight = new MouseButton();
+        Keyboard keyboard = new Keyboard();
 
         public InputManager()
         {
             mouseLeft.Click += o => activities.Add((new Click { Position = o.p }, o.t));
             mouseRight.Click += o => activities.Add((new Click { Position = o.p, IsRightClick = true }, o.t));
+            keyboard.KeyStroke += o => activities.Add((new KeyStroke { Key = o.k }, o.t));
         }
 
         public void NotifyMouse(ref MouseHook.StateMouse s)
@@ -37,6 +40,23 @@ namespace InputRecorder
                     break;
                 case MouseHook.Stroke.RIGHT_UP:
                     mouseRight.Up(ToPoint(s));
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        public void NotifyKeyboard(ref KeyboardHook.StateKeyboard s)
+        {
+            switch (s.Stroke)
+            {
+                case KeyboardHook.Stroke.KEY_DOWN:
+                case KeyboardHook.Stroke.SYSKEY_DOWN:
+                    keyboard.Down(s.Key);
+                    break;
+                case KeyboardHook.Stroke.KEY_UP:
+                case KeyboardHook.Stroke.SYSKEY_UP:
+                    keyboard.Up(s.Key);
                     break;
                 default:
                     break;
@@ -64,7 +84,7 @@ namespace InputRecorder
 
     public class MouseButton
     {
-        static readonly TimeSpan ClickSpan = TimeSpan.FromMilliseconds(200);
+        static readonly TimeSpan ClickSpan = TimeSpan.FromMilliseconds(300);
 
         public event Action<(Point p, DateTime t)> Click;
         public event Action<(Point, Point, DateTime)> Drag;
@@ -91,6 +111,69 @@ namespace InputRecorder
                 Drag?.Invoke((pDown, p, now));
 
             isDown = false;
+        }
+    }
+
+    public class Keyboard
+    {
+        public event Action<(Keys k, DateTime t)> KeyStroke;
+        public event Action<(string s, DateTime t)> TextInput;
+
+        Keys modifier;
+        string text = "";
+
+        public void Down(Keys key)
+        {
+            var m = ToModifier(key);
+            modifier |= m;
+            if (m != Keys.None) return;
+
+            var s = ToLetter(key);
+            if (s != null && (m == Keys.None || m == Keys.Shift))
+                text += m == Keys.Shift ? s.ToUpperInvariant() : s;
+            else
+                KeyStroke?.Invoke((modifier | key, DateTime.Now));
+        }
+
+        public void Up(Keys key)
+        {
+            modifier ^= ToModifier(key);
+        }
+
+        static Keys ToModifier(Keys key)
+        {
+            switch (key)
+            {
+                case Keys.ShiftKey:
+                case Keys.LShiftKey:
+                case Keys.RShiftKey:
+                case Keys.Shift:
+                    return Keys.Shift;
+                case Keys.ControlKey:
+                case Keys.LControlKey:
+                case Keys.RControlKey:
+                case Keys.Control:
+                    return Keys.Control;
+                case Keys.Menu:
+                case Keys.LMenu:
+                case Keys.RMenu:
+                case Keys.Alt:
+                    return Keys.Alt;
+                case Keys.LWin:
+                case Keys.RWin:
+                default:
+                    return Keys.None;
+            }
+        }
+
+        static string ToLetter(Keys key)
+        {
+            if (Keys.D0 <= key && key <= Keys.D9)
+                return key.ToString().TrimStart('D');
+            else if (Keys.A <= key && key <= Keys.Z)
+                return key.ToString();
+            else
+                return null;
         }
     }
 }

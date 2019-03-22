@@ -54,7 +54,7 @@
                     <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
                         <StackPanel>
                             <TextBlock>
-                                <Run Text="ForRange: "/>
+                                <Run Text="{Binding TypeName, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" Foreground="#FF22AA66" FontFamily="Yu Gothic UI Semibold"/>
                                 <Run Text="{TemplateBinding VariableName}"/>
                                 <Run Text="="/>
                                 <Run Text="{Binding Start, RelativeSource={RelativeSource TemplatedParent}}"/>

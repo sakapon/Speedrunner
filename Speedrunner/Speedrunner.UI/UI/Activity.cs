@@ -17,6 +17,11 @@ namespace Speedrunner.UI
         public string TypeName => GetType().Name;
     }
 
+    public abstract class CompositeActivity : ItemsControl
+    {
+        public string TypeName => GetType().Name;
+    }
+
     public class Return : Activity
     {
         static Return()

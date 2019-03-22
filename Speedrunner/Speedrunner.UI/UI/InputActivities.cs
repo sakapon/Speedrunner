@@ -4,14 +4,14 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using FormsKeys = System.Windows.Forms.Keys;
+using Keys = System.Windows.Forms.Keys;
 
 namespace Speedrunner.UI
 {
     public class Delay : Control
     {
         public static readonly DependencyProperty TimeoutProperty =
-            DependencyProperty.Register("Timeout", typeof(int), typeof(Delay), new PropertyMetadata(100));
+            DependencyProperty.Register("Timeout", typeof(int), typeof(Delay), new PropertyMetadata(500));
 
         [Category(Constants.CategoryName)]
         public int Timeout
@@ -85,12 +85,12 @@ namespace Speedrunner.UI
     public class KeyStroke : Delay
     {
         public static readonly DependencyProperty KeyProperty =
-            DependencyProperty.Register("Key", typeof(FormsKeys), typeof(KeyStroke), new PropertyMetadata(FormsKeys.None));
+            DependencyProperty.Register("Key", typeof(Keys), typeof(KeyStroke), new PropertyMetadata(Keys.None));
 
         [Category(Constants.CategoryName)]
-        public FormsKeys Key
+        public Keys Key
         {
-            get { return (FormsKeys)GetValue(KeyProperty); }
+            get { return (Keys)GetValue(KeyProperty); }
             set { SetValue(KeyProperty, value); }
         }
 

@@ -4,15 +4,15 @@ using System.Diagnostics;
 using System.Threading;
 using System.Windows;
 using KLibrary.Labs.UI.Input;
-using FormsKeys = System.Windows.Forms.Keys;
+using Keys = System.Windows.Forms.Keys;
 
 namespace Speedrunner.Activities
 {
     [DebuggerDisplay(@"\{{GetType().Name}: {Timeout} ms\}")]
     public class Delay : Activity
     {
-        [DefaultValue(100)]
-        public int Timeout { get; set; } = 100;
+        [DefaultValue(500)]
+        public int Timeout { get; set; } = 500;
 
         public override void Execute(WorkflowContext context)
         {
@@ -67,11 +67,11 @@ namespace Speedrunner.Activities
     public class KeyStroke : Delay
     {
         [DefaultValue("None")]
-        public FormsKeys Key { get; set; }
+        public Keys Key { get; set; }
 
         protected override void ExecuteAfterDelay()
         {
-            if (Key == FormsKeys.None) return;
+            if (Key == Keys.None) return;
 
             KeyboardInjection.StrokeKey(Key);
         }

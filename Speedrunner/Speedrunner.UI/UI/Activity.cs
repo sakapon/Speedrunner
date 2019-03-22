@@ -12,7 +12,12 @@ namespace Speedrunner.UI
         public const string CategoryName = "Activity";
     }
 
-    public class Return : Control
+    public abstract class Activity : Control
+    {
+        public string TypeName => GetType().Name;
+    }
+
+    public class Return : Activity
     {
         static Return()
         {

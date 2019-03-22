@@ -8,7 +8,7 @@ using Keys = System.Windows.Forms.Keys;
 
 namespace Speedrunner.UI
 {
-    public class Delay : Control
+    public class Delay : Activity
     {
         public static readonly DependencyProperty TimeoutProperty =
             DependencyProperty.Register("Timeout", typeof(int), typeof(Delay), new PropertyMetadata(500));

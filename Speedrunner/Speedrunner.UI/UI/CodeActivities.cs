@@ -7,7 +7,7 @@ using System.Windows.Controls;
 
 namespace Speedrunner.UI
 {
-    public class InvokeMethod : Control
+    public class InvokeMethod : Activity
     {
         public static readonly DependencyProperty TypeProperty =
             DependencyProperty.Register("Type", typeof(Type), typeof(InvokeMethod), new PropertyMetadata(null));
@@ -35,7 +35,7 @@ namespace Speedrunner.UI
         }
     }
 
-    public class Expression : Control
+    public class Expression : Activity
     {
         public static readonly DependencyProperty TextProperty =
             DependencyProperty.Register("Text", typeof(string), typeof(Expression), new PropertyMetadata(""));

@@ -152,7 +152,14 @@ namespace InputRecorder
             else if (s != null && modifier == Keys.Shift)
                 text += s;
             else
+            {
+                if (text != "")
+                {
+                    TextInput?.Invoke((text, DateTime.Now));
+                    text = "";
+                }
                 KeyStroke?.Invoke((modifier | key, DateTime.Now));
+            }
         }
 
         public void Up(Keys key)

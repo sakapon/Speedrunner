@@ -1,18 +1,18 @@
 ﻿<SequentialWorkflow Title="聖夜の脱出" xmlns="http://schemas.saka-pon.net/speedrunner/models">
-  <Click Position="469,747" Timeout="500" />
-  <Click Position="167,487" Timeout="500" />
-  <Click Position="358,661" Timeout="500" />
-  <Click Position="560,791" Timeout="500" />
-  <Click Position="248,706" Timeout="500" />
-  <Click Position="559,622" Timeout="500" />
-  <Click Position="602,789" Timeout="500" />
-  <Click Position="611,676" Timeout="500" />
-  <Click Position="604,773" Timeout="500" />
-  <Click Position="613,655" Timeout="500" />
-  <Click Position="610,778" Timeout="500" />
-  <Click Position="553,723" Timeout="500" />
-  <Click Position="427,649" Timeout="500" />
-  <Click Position="600,791" Timeout="500" />
-  <Click Position="376,615" Timeout="500" />
-  <Click Position="376,615" Timeout="500" />
+  <Click Position="469,747" />
+  <Click Position="167,487" />
+  <Click Position="358,661" />
+  <Click Position="560,791" />
+  <Click Position="248,706" />
+  <Click Position="559,622" />
+  <Click Position="602,789" />
+  <Click Position="611,676" />
+  <Click Position="604,773" />
+  <Click Position="613,655" />
+  <Click Position="610,778" />
+  <Click Position="553,723" />
+  <Click Position="427,649" />
+  <Click Position="600,791" />
+  <Click Position="376,615" />
+  <Click Position="376,615" />
 </SequentialWorkflow>

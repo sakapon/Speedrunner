@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Timers;
 using System.Windows;
 using Speedrunner.Activities;
 using Win32InputLib;
@@ -21,6 +22,7 @@ namespace InputRecorder
             mouseLeft.Click += o => activities.Add((new Click { Position = o.p }, o.t));
             mouseRight.Click += o => activities.Add((new Click { Position = o.p, IsRightClick = true }, o.t));
             keyboard.KeyStroke += o => activities.Add((new KeyStroke { Key = o.k }, o.t));
+            keyboard.TextInput += o => activities.Add((new InputText { Text = o.s }, o.t));
         }
 
         public void NotifyMouse(ref MouseHook.StateMouse s)
@@ -121,6 +123,22 @@ namespace InputRecorder
 
         Keys modifier;
         string text = "";
+        string textForTimer = "";
+        Timer timer = new Timer(1000);
+
+        public Keyboard()
+        {
+            timer.Elapsed += (o, e) =>
+            {
+                if (text != "" && textForTimer == text)
+                {
+                    TextInput?.Invoke((text, DateTime.Now));
+                    text = "";
+                }
+                textForTimer = text;
+            };
+            timer.Start();
+        }
 
         public void Down(Keys key)
         {
@@ -129,8 +147,10 @@ namespace InputRecorder
             if (m != Keys.None) return;
 
             var s = ToLetter(key);
-            if (s != null && (m == Keys.None || m == Keys.Shift))
-                text += m == Keys.Shift ? s.ToUpperInvariant() : s;
+            if (s != null && modifier == Keys.None)
+                text += s.ToLowerInvariant();
+            else if (s != null && modifier == Keys.Shift)
+                text += s;
             else
                 KeyStroke?.Invoke((modifier | key, DateTime.Now));
         }

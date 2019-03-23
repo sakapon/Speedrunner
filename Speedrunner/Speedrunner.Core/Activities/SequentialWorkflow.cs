@@ -20,6 +20,8 @@ namespace Speedrunner.Activities
             {
                 context.IsReturned = true;
                 context.Error = ex;
+                var varError = context.Variables.Get<string>("$error");
+                varError.Value = ex.Message;
             }
         }
     }

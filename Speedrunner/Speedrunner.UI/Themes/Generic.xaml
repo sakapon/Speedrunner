@@ -8,19 +8,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:Return}">
                     <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
-                        <TextBlock Text="Return"/>
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <Style TargetType="{x:Type local:Delay}">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type local:Delay}">
-                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
-                        <TextBlock Text="{Binding Timeout, RelativeSource={RelativeSource TemplatedParent}, StringFormat=Delay: \{0\} ms}"/>
+                        <TextBlock Text="{Binding TypeName, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" Foreground="#FF22AA66" FontFamily="Yu Gothic UI Semibold"/>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
@@ -33,7 +21,7 @@
                 <ControlTemplate TargetType="{x:Type local:InvokeMethod}">
                     <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
                         <TextBlock>
-                            <Run Text="InvokeMethod: "/>
+                            <Run Text="{Binding TypeName, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" Foreground="#FF22AA66" FontFamily="Yu Gothic UI Semibold"/>
                             <Run Text="{Binding Type.Name, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"/>
                             <Run Text="."/>
                             <Run Text="{TemplateBinding MethodName}"/>
@@ -49,7 +37,28 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:Expression}">
                     <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
-                        <TextBlock Text="{Binding Text, RelativeSource={RelativeSource TemplatedParent}, StringFormat=Expression: \{0\}}"/>
+                        <TextBlock>
+                            <Run Text="{Binding TypeName, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" Foreground="#FF22AA66" FontFamily="Yu Gothic UI Semibold"/>
+                            <Run Text="{TemplateBinding Text}"/>
+                        </TextBlock>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type local:If}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:If}">
+                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                        <StackPanel>
+                            <TextBlock>
+                                <Run Text="{Binding TypeName, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" Foreground="#FF22AA66" FontFamily="Yu Gothic UI Semibold"/>
+                                <Run Text="{TemplateBinding Condition}"/>
+                            </TextBlock>
+                            <ItemsPresenter Margin="{TemplateBinding ItemsMargin}"/>
+                        </StackPanel>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
@@ -63,7 +72,7 @@
                     <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
                         <StackPanel>
                             <TextBlock>
-                                <Run Text="ForRange: "/>
+                                <Run Text="{Binding TypeName, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" Foreground="#FF22AA66" FontFamily="Yu Gothic UI Semibold"/>
                                 <Run Text="{TemplateBinding VariableName}"/>
                                 <Run Text="="/>
                                 <Run Text="{Binding Start, RelativeSource={RelativeSource TemplatedParent}}"/>
@@ -74,6 +83,89 @@
                             </TextBlock>
                             <ItemsPresenter Margin="{TemplateBinding ItemsMargin}"/>
                         </StackPanel>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type local:Delay}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:Delay}">
+                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                        <TextBlock>
+                            <Run Text="{Binding TypeName, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" Foreground="#FF22AA66" FontFamily="Yu Gothic UI Semibold"/>
+                            <Run Text="{Binding Timeout, RelativeSource={RelativeSource TemplatedParent}, StringFormat=\{0\} ms}"/>
+                        </TextBlock>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type local:MouseMove}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:MouseMove}">
+                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                        <TextBlock>
+                            <Run Text="{Binding TypeName, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" Foreground="#FF22AA66" FontFamily="Yu Gothic UI Semibold"/>
+                            <Run Text="{Binding Timeout, RelativeSource={RelativeSource TemplatedParent}}"/>
+                            <Run Text="ms,"/>
+                            <Run Text="{Binding Position, RelativeSource={RelativeSource TemplatedParent}}"/>
+                        </TextBlock>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type local:Click}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:Click}">
+                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                        <TextBlock>
+                            <Run Text="{Binding TypeName, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" Foreground="#FF22AA66" FontFamily="Yu Gothic UI Semibold"/>
+                            <Run Text="{Binding Timeout, RelativeSource={RelativeSource TemplatedParent}}"/>
+                            <Run Text="ms,"/>
+                            <Run Text="{Binding Position, RelativeSource={RelativeSource TemplatedParent}}"/>
+                        </TextBlock>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type local:KeyStroke}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:KeyStroke}">
+                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                        <TextBlock>
+                            <Run Text="{Binding TypeName, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" Foreground="#FF22AA66" FontFamily="Yu Gothic UI Semibold"/>
+                            <Run Text="{Binding Timeout, RelativeSource={RelativeSource TemplatedParent}}"/>
+                            <Run Text="ms,"/>
+                            <Run Text="{Binding Key, RelativeSource={RelativeSource TemplatedParent}}"/>
+                        </TextBlock>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type local:InputText}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:InputText}">
+                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                        <TextBlock>
+                            <Run Text="{Binding TypeName, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" Foreground="#FF22AA66" FontFamily="Yu Gothic UI Semibold"/>
+                            <Run Text="{Binding Timeout, RelativeSource={RelativeSource TemplatedParent}}"/>
+                            <Run Text="ms,"/>
+                            <Run Text="{TemplateBinding Text}"/>
+                        </TextBlock>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
@@ -103,7 +195,7 @@
                 <ControlTemplate TargetType="{x:Type local:WorkflowVariables}">
                     <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
                         <DockPanel>
-                            <TextBlock Text="Variables" Background="#FFFFDDCC" Padding="8,2" DockPanel.Dock="Top"/>
+                            <TextBlock Text="Variables (Initial)" Background="#FFFFDDCC" Padding="8,2" DockPanel.Dock="Top"/>
                             <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="8,2">
                                 <ItemsPresenter/>
                             </ScrollViewer>
@@ -120,7 +212,7 @@
                 <ControlTemplate TargetType="{x:Type local:WorkflowResult}">
                     <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
                         <DockPanel>
-                            <TextBlock Text="Result" Background="#FFBBEECC" Padding="8,2" DockPanel.Dock="Top"/>
+                            <TextBlock Text="Variables (Result)" Background="#FFBBEECC" Padding="8,2" DockPanel.Dock="Top"/>
                             <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="8,2">
                                 <ItemsPresenter/>
                             </ScrollViewer>

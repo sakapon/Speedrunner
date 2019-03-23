@@ -7,7 +7,35 @@ using System.Windows.Controls;
 
 namespace Speedrunner.UI
 {
-    public class Expression : Control
+    public class InvokeMethod : Activity
+    {
+        public static readonly DependencyProperty TypeProperty =
+            DependencyProperty.Register("Type", typeof(Type), typeof(InvokeMethod), new PropertyMetadata(null));
+
+        public static readonly DependencyProperty MethodNameProperty =
+            DependencyProperty.Register("MethodName", typeof(string), typeof(InvokeMethod), new PropertyMetadata(""));
+
+        [Category(Constants.CategoryName)]
+        public Type Type
+        {
+            get { return (Type)GetValue(TypeProperty); }
+            set { SetValue(TypeProperty, value); }
+        }
+
+        [Category(Constants.CategoryName)]
+        public string MethodName
+        {
+            get { return (string)GetValue(MethodNameProperty); }
+            set { SetValue(MethodNameProperty, value); }
+        }
+
+        static InvokeMethod()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(InvokeMethod), new FrameworkPropertyMetadata(typeof(InvokeMethod)));
+        }
+    }
+
+    public class Expression : Activity
     {
         public static readonly DependencyProperty TextProperty =
             DependencyProperty.Register("Text", typeof(string), typeof(Expression), new PropertyMetadata(""));
@@ -22,6 +50,24 @@ namespace Speedrunner.UI
         static Expression()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(Expression), new FrameworkPropertyMetadata(typeof(Expression)));
+        }
+    }
+
+    public class If : CompositeActivity
+    {
+        public static readonly DependencyProperty ConditionProperty =
+            DependencyProperty.Register("Condition", typeof(string), typeof(If), new PropertyMetadata(""));
+
+        [Category(Constants.CategoryName)]
+        public string Condition
+        {
+            get { return (string)GetValue(ConditionProperty); }
+            set { SetValue(ConditionProperty, value); }
+        }
+
+        static If()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(If), new FrameworkPropertyMetadata(typeof(If)));
         }
     }
 }

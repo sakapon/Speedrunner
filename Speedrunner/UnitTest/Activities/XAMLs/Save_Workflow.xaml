@@ -1,7 +1,7 @@
 ﻿<SequentialWorkflow Title="Test" xmlns="http://schemas.saka-pon.net/speedrunner/models">
   <Delay Timeout="300" />
   <ForRange Count="10" Start="3">
-    <Delay Timeout="300" />
-    <Delay Timeout="300" />
+    <Click Position="0,123" />
+    <KeyStroke Key="Ctrl+A" />
   </ForRange>
 </SequentialWorkflow>

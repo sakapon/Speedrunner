@@ -7,7 +7,7 @@ using System.Windows.Controls;
 
 namespace Speedrunner.UI
 {
-    public class SequentialWorkflow : CompositeActivity
+    public class SequentialWorkflow : ItemsControl
     {
         public static readonly DependencyProperty TitleProperty =
             DependencyProperty.Register("Title", typeof(string), typeof(SequentialWorkflow), new PropertyMetadata(""));

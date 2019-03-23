@@ -20,6 +20,16 @@ namespace Speedrunner.UI
     public abstract class CompositeActivity : ItemsControl
     {
         public string TypeName => GetType().Name;
+
+        public static readonly DependencyProperty ItemsMarginProperty =
+            DependencyProperty.Register("ItemsMargin", typeof(Thickness), typeof(CompositeActivity), new PropertyMetadata(new Thickness(20, 0, 0, 0)));
+
+        [Category("Layout")]
+        public Thickness ItemsMargin
+        {
+            get { return (Thickness)GetValue(ItemsMarginProperty); }
+            set { SetValue(ItemsMarginProperty, value); }
+        }
     }
 
     public class Return : Activity

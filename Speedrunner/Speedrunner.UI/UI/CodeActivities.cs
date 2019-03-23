@@ -52,4 +52,22 @@ namespace Speedrunner.UI
             DefaultStyleKeyProperty.OverrideMetadata(typeof(Expression), new FrameworkPropertyMetadata(typeof(Expression)));
         }
     }
+
+    public class If : CompositeActivity
+    {
+        public static readonly DependencyProperty ConditionProperty =
+            DependencyProperty.Register("Condition", typeof(string), typeof(If), new PropertyMetadata(""));
+
+        [Category(Constants.CategoryName)]
+        public string Condition
+        {
+            get { return (string)GetValue(ConditionProperty); }
+            set { SetValue(ConditionProperty, value); }
+        }
+
+        static If()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(If), new FrameworkPropertyMetadata(typeof(If)));
+        }
+    }
 }

@@ -29,19 +29,27 @@ namespace Speedrunner.Models
             ExecuteWorkflow(ActivityHelper.FindSequentialWorkflow(obj), ActivityHelper.FindWorkflowVariables(obj));
         }
 
+        WorkflowContext context;
+
         public void ExecuteWorkflow(UI.SequentialWorkflow workflowUI, UI.WorkflowVariables variablesUI)
         {
             Variables.Value = null;
 
             var workflow = (SequentialWorkflow)workflowUI.ToModel();
             var variables = (WorkflowVariables)variablesUI.ToModel();
-            var context = new WorkflowContext { Variables = VariableCollection.ToTyped(variables.Variables) };
+            context = new WorkflowContext { Variables = VariableCollection.ToTyped(variables.Variables) };
 
             Task.Run(() =>
             {
                 workflow.Execute(context);
                 Variables.Value = context.Variables;
             });
+        }
+
+        public void StopWorkflow()
+        {
+            if (context == null) return;
+            context.IsReturned = true;
         }
     }
 }

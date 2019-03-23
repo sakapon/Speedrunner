@@ -8,7 +8,7 @@
         xmlns:System="clr-namespace:System;assembly=mscorlib"
         x:Class="Speedrunner.MainWindow"
         mc:Ignorable="d"
-        Title="Speedrunner" Height="600" Width="900" FontSize="20" FontFamily="Verdana">
+        Title="Speedrunner" Height="600" Width="900" FontSize="20" FontFamily="Verdana" Topmost="True">
     <Window.Resources>
         <DataTemplate x:Key="VariableTemplate">
             <TextBlock>
@@ -47,7 +47,10 @@
                 <sr:Variable Type="{x:Type System:Double}" VariableName="p" Value="1"/>
             </sr:WorkflowVariables>
             <sr:WorkflowResult ItemsSource="{Binding AppModel.Variables.Value}" ItemTemplate="{DynamicResource VariableTemplate}" Grid.Row="1"/>
-            <Button x:Name="StartButton" Content="Start" Width="120" Margin="10" Grid.Row="2"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10" Grid.Row="2">
+                <Button x:Name="StartButton" Content="Start" Width="120" Margin="10,0"/>
+                <Button x:Name="StopButton" Content="Stop" Width="120" Margin="10,0"/>
+            </StackPanel>
         </Grid>
     </Grid>
 </Window>

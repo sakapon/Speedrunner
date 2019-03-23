@@ -27,6 +27,7 @@ namespace Speedrunner
 
             var vm = (MainViewModel)DataContext;
             StartButton.Click += (o, e) => vm.AppModel.ExecuteWorkflow(this);
+            StopButton.Click += (o, e) => vm.AppModel.StopWorkflow();
         }
 
         public static void NextP(WorkflowContext context)

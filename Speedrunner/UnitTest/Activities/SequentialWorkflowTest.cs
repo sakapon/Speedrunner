@@ -13,6 +13,27 @@ namespace UnitTest.Activities
             Assert.AreEqual(0.0, Math.Round(expected - actual, 12));
 
         [TestMethod]
+        public void GetSqrt_Expression()
+        {
+            var context = new WorkflowContext();
+            context.Variables.Add(new Variable<double> { VariableName = "a", Value = 5.0 });
+
+            var wf = new SequentialWorkflow();
+            wf.Activities.Add(new Expression { Text = "x = a" });
+            var forRange = new ForRange { Count = 100 };
+            forRange.Activities.Add(new Expression { Text = "xi = (x + a / x) / 2" });
+            var ifReturn = new If { Condition = "x == xi" };
+            ifReturn.Activities.Add(new Return());
+            forRange.Activities.Add(ifReturn);
+            forRange.Activities.Add(new Expression { Text = "x = xi" });
+            wf.Activities.Add(forRange);
+
+            wf.Execute(context);
+
+            AssertNearlyEqual(Math.Sqrt(5.0), context.Variables.Get<double>("x"));
+        }
+
+        [TestMethod]
         public void GetPi_Expression()
         {
             var context = new WorkflowContext();

@@ -23,7 +23,7 @@ namespace UnitTest.Activities
             wf.Activities.Add(new Delay { Timeout = 300 });
             var forRange = new ForRange { Start = 3, Count = 10 };
             forRange.Activities.Add(new Click { Position = new Point(0, 123) });
-            forRange.Activities.Add(new KeyStroke { Timeout = 100, Key = Keys.Control | Keys.A });
+            forRange.Activities.Add(new KeyStroke { Timeout = 500, Key = Keys.Control | Keys.A });
             wf.Activities.Add(forRange);
 
             Assert.AreEqual(expected, XamlServices.Save(wf));
